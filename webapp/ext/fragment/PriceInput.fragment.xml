@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Input 
+        id="inputPrice"
+        value="{ path: 'NetPrice', type: 'sap.ui.model.type.Float' }" 
+        change=".extension.ItemCalculation.onPriceChange" 
+        textAlign="Right" 
+    />
+</core:FragmentDefinition>

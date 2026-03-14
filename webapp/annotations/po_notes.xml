@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata4/iwbep/all/srvd/sap/zui_purchaseorder/0001/$metadata">
+        <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+
+            <!-- ================================================================ -->
+            <!-- ENTITY-LEVEL ANNOTATIONS                                          -->
+            <!-- ================================================================ -->
+            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_TextType">
+
+                <!-- ============================================================ -->
+                <!-- FACETS                                                         -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+
+                        <!-- Collection: Purchase Order Note (pos 10) -->
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="ID" String="GeneralInfoCollection"/>
+                            <PropertyValue Property="Label" String="Purchase Order Note"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <!-- Note Details: FieldGroup Reference (pos 10) -->
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="NoteDataGroup"/>
+                                        <PropertyValue Property="Label" String="Note Details"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#NoteDetails"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- LINE ITEM                                                      -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+
+                        <!-- TextId (pos 10) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TextId"/>
+                            <PropertyValue Property="Label" String="Note Type"/>
+                        </Record>
+
+                        <!-- TextContent (pos 20) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TextContent"/>
+                            <PropertyValue Property="Label" String="Content"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FIELD GROUP: NoteDetails                                       -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.FieldGroup" Qualifier="NoteDetails">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <!-- TextId (pos 10) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="TextId"/>
+                                    <PropertyValue Property="Label" String="Note Type"/>
+                                </Record>
+                                <!-- TextContent (pos 20) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="TextContent"/>
+                                    <PropertyValue Property="Label" String="Note Content"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- HIDDEN FIELDS                                                  -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Hidden" Path="TextUuid"/>
+                <Annotation Term="UI.Hidden" Path="PoNumber"/>
+
+            </Annotations>
+
+            <!-- ================================================================ -->
+            <!-- PROPERTY-LEVEL ANNOTATIONS                                        -->
+            <!-- ================================================================ -->
+
+            <!-- TextContent: Multi-line text input -->
+            <!--
+                ABAP: @UI.multiLineText: true
+                → Translated as UI.MultiLineText = true on the property.
+                   This tells Fiori Elements to render a <TextArea> instead of a single-line <Input>.
+            -->
+            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_TextType/TextContent">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+            </Annotations>
+
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

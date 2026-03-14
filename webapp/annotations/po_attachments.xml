@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata4/iwbep/all/srvd/sap/zui_purchaseorder/0001/$metadata">
+        <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+
+            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_AttachType">
+
+                <!-- ============================================================ -->
+                <!-- HEADER INFO                                                    -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Attachment"/>
+                        <PropertyValue Property="TypeNamePlural" String="Attachments"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Filename"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FACETS                                                         -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <!-- General: Identification Reference (pos 10) -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="General"/>
+                            <PropertyValue Property="Label" String="Attachment Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- LINE ITEM                                                      -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <!-- Filename (pos 10) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Filename"/>
+                            <PropertyValue Property="Label" String="File Name"/>
+                        </Record>
+                        <!-- Attachment / Download Link (pos 20) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Attachment"/>
+                            <PropertyValue Property="Label" String="File Content"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- IDENTIFICATION                                                 -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <!-- Filename (pos 10) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Filename"/>
+                            <PropertyValue Property="Label" String="File Name"/>
+                        </Record>
+                        <!-- Attachment / Download Link (pos 20) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Attachment"/>
+                            <PropertyValue Property="Label" String="File Content"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- HIDDEN FIELDS                                                  -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Hidden" Path="AttachUuid"/>
+                <Annotation Term="UI.Hidden" Path="PoNumber"/>
+                <Annotation Term="UI.Hidden" Path="LocalLastChangedAt"/>
+                <Annotation Term="UI.Hidden" Path="MimeType"/>
+
+            </Annotations>
+
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

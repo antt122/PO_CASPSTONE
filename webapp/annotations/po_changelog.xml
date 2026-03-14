@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata4/iwbep/all/srvd/sap/zui_purchaseorder/0001/$metadata">
+        <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+
+            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PURCHASEORDERLOGTPType">
+
+                <!-- ============================================================ -->
+                <!-- HEADER INFO                                                    -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Change Log"/>
+                        <PropertyValue Property="TypeNamePlural" String="Change Logs"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="FieldName"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- PRESENTATION VARIANT (Sort by ChangedAt DESC — newest first)  -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.PresentationVariant">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="ChangedAt"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- LINE ITEM                                                      -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+
+                        <!-- FieldName (pos 10, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="FieldName"/>
+                            <PropertyValue Property="Label" String="Field Name"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                        <!-- OldValue (pos 20, MEDIUM) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="OldValue"/>
+                            <PropertyValue Property="Label" String="Old Value"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+
+                        <!-- NewValue (pos 30, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="NewValue"/>
+                            <PropertyValue Property="Label" String="New Value"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                        <!-- changereason (pos 35, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="changereason"/>
+                            <PropertyValue Property="Label" String="Reason"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                        <!-- ChangedBy (pos 40, MEDIUM) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChangedBy"/>
+                            <PropertyValue Property="Label" String="Changed By"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+
+                        <!-- ChangedAt (pos 50, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChangedAt"/>
+                            <PropertyValue Property="Label" String="Time"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- HIDDEN FIELDS                                                  -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Hidden" Path="LogID"/>
+                <Annotation Term="UI.Hidden" Path="PoNumber"/>
+                <Annotation Term="UI.Hidden" Path="PoItem"/>
+
+            </Annotations>
+
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

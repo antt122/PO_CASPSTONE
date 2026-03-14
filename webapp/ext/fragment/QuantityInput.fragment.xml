@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Input 
+        id="inputQuantity"
+        value="{ path: 'Quantity', type: 'sap.ui.model.type.Float' }" 
+        change=".extension.ItemCalculation.onQuantityChange" 
+        textAlign="Right" 
+    />
+</core:FragmentDefinition>

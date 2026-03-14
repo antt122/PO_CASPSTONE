@@ -1,0 +1,238 @@
+{
+  "_version": "1.48.0",
+  "sap.app": {
+    "id": "capstone",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.20.2",
+      "toolsId": "62719271-11ae-447e-b5d8-554ff74ca249"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "po_general": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_general.xml",
+        "settings": {
+          "localUri": "annotations/po_general.xml"
+        }
+      },
+      "po_items": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_items.xml",
+        "settings": {
+          "localUri": "annotations/po_items.xml"
+        }
+      },
+      "po_value_helps": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_value_helps.xml",
+        "settings": {
+          "localUri": "annotations/po_value_helps.xml"
+        }
+      },
+      "po_attachments": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_attachments.xml",
+        "settings": {
+          "localUri": "annotations/po_attachments.xml"
+        }
+      },
+      "po_notes": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_notes.xml",
+        "settings": {
+          "localUri": "annotations/po_notes.xml"
+        }
+      },
+      "po_changelog": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/po_changelog.xml",
+        "settings": {
+          "localUri": "annotations/po_changelog.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/iwbep/all/srvd/sap/zui_purchaseorder/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation",
+            "po_general",
+            "po_items",
+            "po_attachments",
+            "po_value_helps",
+            "po_notes",
+            "po_changelog"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.108.33",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "capstone.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "PurchaseOrderList",
+          "target": "PurchaseOrderList"
+        },
+        {
+          "pattern": "PurchaseOrder({key}):?query:",
+          "name": "PurchaseOrderObjectPage",
+          "target": "PurchaseOrderObjectPage"
+        }
+      ],
+      "targets": {
+        "PurchaseOrderList": {
+          "type": "Component",
+          "id": "PurchaseOrderList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/PurchaseOrder",
+              "variantManagement": "Page",
+              "navigation": {
+                "PurchaseOrder": {
+                  "detail": {
+                    "route": "PurchaseOrderObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "PurchaseOrderObjectPage": {
+          "type": "Component",
+          "id": "PurchaseOrderObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/PurchaseOrder",
+              "controlConfiguration": {
+                "_PoItem/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "columns": {
+                    "QuantityInput": {
+                      "header": "Order Quantity",
+                      "position": {
+                        "anchor": "DataField::ShortText",
+                        "placement": "After"
+                      },
+                      "template": "capstone.ext.fragment.QuantityInput",
+                      "availability": "Hidden"
+                    },
+                    "PriceInput": {
+                      "header": "Net Order Price",
+                      "position": {
+                        "anchor": "DataField::Quantity",
+                        "placement": "After"
+                      },
+                      "template": "capstone.ext.fragment.PriceInput",
+                      "availability": "Hidden"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController": {
+            "controllerName": "capstone.ext.controller.ItemCalculation"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
