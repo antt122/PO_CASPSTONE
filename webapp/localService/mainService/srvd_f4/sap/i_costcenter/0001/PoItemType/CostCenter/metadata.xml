@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL_324')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="../../../../srvd/sap/zui_purchaseorder/0001/$metadata">
+        <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__ParentService"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd_f4.i_costcenter.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="I_CostCenterType">
+                <Key>
+                    <PropertyRef Name="ControllingArea"/>
+                    <PropertyRef Name="CostCenter"/>
+                </Key>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="CostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostCenter_Text" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ValidityEndDate" Type="Edm.Date"/>
+                <Property Name="ValidityStartDate" Type="Edm.Date"/>
+                <Property Name="IsBlkdForPrimaryCostsPosting" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsBlockedForPlanPrimaryCosts" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="BusinessArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="CostCenterCategory" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="CostCtrResponsiblePersonName" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="CostCtrResponsibleUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="CostCenterCurrency" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="CostingSheet" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="TaxJurisdiction" Type="Edm.String" Nullable="false" MaxLength="15"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="LogicalSystem" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostCenterCreationDate" Type="Edm.Date"/>
+                <Property Name="CostCenterCreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="IsBlkdForSecondaryCostsPosting" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsBlockedForRevenuePosting" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsBlockedForCommitmentPosting" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsBlockedForPlanSecondaryCosts" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsBlockedForPlanRevenues" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="CostCenterAllocationMethod" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="ConsumptionQtyIsRecorded" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="Department" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="SubsequentCostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ConditionUsage" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="ConditionApplication" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="CostCenterAccountingOverhead" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="FormOfAddress" Type="Edm.String" Nullable="false" MaxLength="15"/>
+                <Property Name="AddressName" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="AddressAdditionalName" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="CostCenterAddrName3" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="CostCenterAddrName4" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="CityName" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="District" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="StreetAddressName" Type="Edm.String" Nullable="false" MaxLength="35"/>
+                <Property Name="POBox" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="PostalCode" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="POBoxPostalCode" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Region" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="TeleboxNumber" Type="Edm.String" Nullable="false" MaxLength="15"/>
+                <Property Name="PhoneNumber1" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="PhoneNumber2" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="FaxNumber" Type="Edm.String" Nullable="false" MaxLength="31"/>
+                <Property Name="TeletexNumber" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="TelexNumber" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="DataCommunicationPhoneNumber" Type="Edm.String" Nullable="false" MaxLength="14"/>
+                <Property Name="CostCenterPrinterDestination" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="CostCenterStandardHierArea" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="CostCollector" Type="Edm.String" Nullable="false" MaxLength="23"/>
+                <Property Name="CostCenterIsComplete" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="IsStatisticalCostCenter" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="ObjectInternalID" Type="Edm.String" Nullable="false" MaxLength="22"/>
+                <Property Name="CostCenterFunction" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="CostCenterAlternativeFunction" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="ActyIndepFormulaPlanningTmpl" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ActyDepdntFormulaPlanningTmpl" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ActyIndependentAllocationTmpl" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ActyDependentAllocationTmpl" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ActlIndepStatisticalKeyFigures" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ActlDepStatisticalKeyFigures" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="JointVenture" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="JointVentureRecoveryCode" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="JointVentureEquityType" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="JointVentureObjectType" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="JointVentureClass" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="JointVentureSubClass" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="BudgetCarryingCostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="AvailabilityControlProfile" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="AvailabilityControlIsActive" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Fund" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="GrantID" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="FundIsFixAssigned" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="GrantIDIsFixAssigned" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="FunctionalAreaIsFixAssigned" Type="Edm.Boolean" Nullable="false"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="I_CostCenter" EntityType="com.sap.gateway.srvd_f4.i_costcenter.v0001.I_CostCenterType"/>
+            </EntityContainer>
+            <Annotations Target="SAP__self.I_CostCenterType/ControllingArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Controlling Area"/>
+                <Annotation Term="SAP__common.Heading" String="COAr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenter">
+                <Annotation Term="SAP__common.Text" Path="CostCenter_Text"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Center"/>
+                <Annotation Term="SAP__common.Heading" String="Cost Ctr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenter_Text">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Cost Center Name"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlkdForPrimaryCostsPosting">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Actual primary costs"/>
+                <Annotation Term="SAP__common.Heading" String="ActPri"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Actual Primary Postings"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlockedForPlanPrimaryCosts">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plan primary costs"/>
+                <Annotation Term="SAP__common.Heading" String="PlnPri"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Plan Primary Costs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CompanyCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Company Code"/>
+                <Annotation Term="SAP__common.Heading" String="CoCd"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/BusinessArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Business Area"/>
+                <Annotation Term="SAP__common.Heading" String="BusA"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterCategory">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Center Category"/>
+                <Annotation Term="SAP__common.Heading" String="CCtC"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCtrResponsibleUser">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="User Responsible"/>
+                <Annotation Term="SAP__common.Heading" String="User Resp."/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterCurrency">
+                <Annotation Term="SAP__common.IsCurrency"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Currency"/>
+                <Annotation Term="SAP__common.Heading" String="Crcy"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Currency Key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostingSheet">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Costing Sheet"/>
+                <Annotation Term="SAP__common.Heading" String="CostSh"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/TaxJurisdiction">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Tax Jurisdiction"/>
+                <Annotation Term="SAP__common.Heading" String="Tax Jur."/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ProfitCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Profit Center"/>
+                <Annotation Term="SAP__common.Heading" String="Profit Ctr"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Plant"/>
+                <Annotation Term="SAP__common.Heading" String="Plnt"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/LogicalSystem">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Logical System"/>
+                <Annotation Term="SAP__common.Heading" String="Log.System"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterCreatedByUser">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Created By"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Entered By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlkdForSecondaryCostsPosting">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Actl Sec. Costs"/>
+                <Annotation Term="SAP__common.Heading" String="ActSec"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Actual Secondary Costs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlockedForRevenuePosting">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Actual Revenues"/>
+                <Annotation Term="SAP__common.Heading" String="ActRev"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Actual Revenue Postings"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlockedForCommitmentPosting">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Commitment Update"/>
+                <Annotation Term="SAP__common.Heading" String="Cmmt"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Commitment Update"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlockedForPlanSecondaryCosts">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Lock Plan Sec Costs"/>
+                <Annotation Term="SAP__common.Heading" String="Lock Plan Secondary Costs"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Plan Secondary Costs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsBlockedForPlanRevenues">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Lock Planning Revn"/>
+                <Annotation Term="SAP__common.Heading" String="Lock Planning Revenues"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Lock Indicator for Planning Revenues"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterAllocationMethod">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Allocation Methods"/>
+                <Annotation Term="SAP__common.Heading" String="AM"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator for Allowed Allocation Methods"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ConsumptionQtyIsRecorded">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Record Quantity"/>
+                <Annotation Term="SAP__common.Heading" String="Qty"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator for Recording Consumption Quantities"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/SubsequentCostCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Subsequent Cost Ctr."/>
+                <Annotation Term="SAP__common.Heading" String="SCtr"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Subsequent Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ConditionUsage">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Usage"/>
+                <Annotation Term="SAP__common.Heading" String="U"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Usage of the condition table"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ConditionApplication">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Application"/>
+                <Annotation Term="SAP__common.Heading" String="App"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterAccountingOverhead">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Overhead Key"/>
+                <Annotation Term="SAP__common.Heading" String="OH Key"/>
+                <Annotation Term="SAP__common.QuickInfo" String="CO-CCA Overhead Key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Country">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Country/Region Key"/>
+                <Annotation Term="SAP__common.Heading" String="C/R"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/POBox">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="PO Box"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/PostalCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Postal Code"/>
+                <Annotation Term="SAP__common.Heading" String="PostalCode"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/POBoxPostalCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="P.O. Box Postal Code"/>
+                <Annotation Term="SAP__common.Heading" String="PO Box pcd"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Region">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Region"/>
+                <Annotation Term="SAP__common.Heading" String="Rg"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Region (State, Province, County)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterPrinterDestination">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Printer Destination"/>
+                <Annotation Term="SAP__common.Heading" String="Prin"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Printer Destination for CCtr Report"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterStandardHierArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Hierarchy Area"/>
+                <Annotation Term="SAP__common.Heading" String="Area"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Standard Hierarchy Area"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCollector">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Collector Key"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterIsComplete">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Complete"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Completion Flag for the Cost Center Master Record"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/IsStatisticalCostCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Cost Center Is Stat."/>
+                <Annotation Term="SAP__common.Heading" String="CC Stat."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator: Cost Center is Statistical Account Assignment"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ObjectInternalID">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Object number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterFunction">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Function"/>
+                <Annotation Term="SAP__common.Heading" String="Fct"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Function of Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterAlternativeFunction">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Altern. Function"/>
+                <Annotation Term="SAP__common.Heading" String="A.Fnc"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Alternative Function of Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/FunctionalArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Functional Area"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActyIndepFormulaPlanningTmpl">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Activity-Indep.Temp."/>
+                <Annotation Term="SAP__common.Heading" String="Act-Ind.Temp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Template for Activity-Independent Formula Planning"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActyDepdntFormulaPlanningTmpl">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Activity-Dep.Tmp"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Template for Activity-Dependent Formula Planning"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActyIndependentAllocationTmpl">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Acty-IndepTemplAlloc"/>
+                <Annotation Term="SAP__common.Heading" String="ActyIndTemplAlloc"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Template: Activity-Independent Allocation to Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActyDependentAllocationTmpl">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Acty-Dep Templ.Alloc"/>
+                <Annotation Term="SAP__common.Heading" String="ActyDepTemplAlloc"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Template: Activity-Dependent Allocation to Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActlIndepStatisticalKeyFigures">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Templ.: Stat. KF"/>
+                <Annotation Term="SAP__common.Heading" String="Templ.: Act. Stat. Key Figure"/>
+                <Annotation Term="SAP__common.QuickInfo" String="CCA_TEMPL_SKI"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ActlDepStatisticalKeyFigures">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Templ.: Stat. KF"/>
+                <Annotation Term="SAP__common.Heading" String="Templ.: Act. Stat. Key Figure"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Template: Act. Stat. Key Figure - Cost Center/Activity Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVenture">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Joint venture"/>
+                <Annotation Term="SAP__common.Heading" String="JV"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVentureRecoveryCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Recovery Indicator"/>
+                <Annotation Term="SAP__common.Heading" String="RI"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVentureEquityType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Equity type"/>
+                <Annotation Term="SAP__common.Heading" String="ET"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVentureObjectType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="JV Object Type"/>
+                <Annotation Term="SAP__common.Heading" String="Type"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Joint Venture Object Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVentureClass">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="JIB/JIBE Class"/>
+                <Annotation Term="SAP__common.Heading" String="Class"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/JointVentureSubClass">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="JIB/JIBE Subclass A"/>
+                <Annotation Term="SAP__common.Heading" String="SCl A"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/BudgetCarryingCostCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Budget Cost Center"/>
+                <Annotation Term="SAP__common.Heading" String="Budget CC"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Budget-Carrying Cost Center"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/AvailabilityControlProfile">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Availy Ctrl Prfl"/>
+                <Annotation Term="SAP__common.Heading" String="Profile"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Budget Availability Control: Profile"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/AvailabilityControlIsActive">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="AVC is Active"/>
+                <Annotation Term="SAP__common.Heading" String="AVC Active"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Budget Availability Control for Cost Centers is Active"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Fund">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Fund"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/GrantID">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Grant"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/FundIsFixAssigned">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Fund Fixed Assignment"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator for Fund with Fixed Assignment"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/GrantIDIsFixAssigned">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Grant Fixed Assignment"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator for Grant with Fixed Assignment"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/FunctionalAreaIsFixAssigned">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Functional Area Fixed Assignment"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indicator for Functional Area with Fixed Assignment"/>
+            </Annotations>
+            <Annotations Target="SAP__ParentService.PoItemType/CostCenter">
+                <Annotation Term="SAP__common.ValueListMapping">
+                    <Record>
+                        <PropertyValue Property="Label" String="Cost Center"/>
+                        <PropertyValue Property="CollectionPath" String="I_CostCenter"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="SAP__common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CostCenter"/>
+                                    <PropertyValue Property="ValueListProperty" String="CostCenter"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ControllingArea"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenter_Text"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValidityEndDate"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ValidityStartDate"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlkdForPrimaryCostsPosting"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlockedForPlanPrimaryCosts"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="BusinessArea"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterCategory"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCtrResponsiblePersonName"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCtrResponsibleUser"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterCurrency"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostingSheet"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TaxJurisdiction"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ProfitCenter"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Plant"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="LogicalSystem"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterCreationDate"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterCreatedByUser"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlkdForSecondaryCostsPosting"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlockedForRevenuePosting"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlockedForCommitmentPosting"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlockedForPlanSecondaryCosts"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsBlockedForPlanRevenues"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterAllocationMethod"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ConsumptionQtyIsRecorded"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Department"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="SubsequentCostCenter"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ConditionUsage"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ConditionApplication"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterAccountingOverhead"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Country"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FormOfAddress"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AddressName"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AddressAdditionalName"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterAddrName3"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterAddrName4"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CityName"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="District"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="StreetAddressName"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="POBox"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="PostalCode"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="POBoxPostalCode"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Region"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Language"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TeleboxNumber"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="PhoneNumber1"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="PhoneNumber2"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FaxNumber"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TeletexNumber"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="TelexNumber"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="DataCommunicationPhoneNumber"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterPrinterDestination"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterStandardHierArea"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCollector"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterIsComplete"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="IsStatisticalCostCenter"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ObjectInternalID"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterFunction"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CostCenterAlternativeFunction"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FunctionalArea"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActyIndepFormulaPlanningTmpl"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActyDepdntFormulaPlanningTmpl"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActyIndependentAllocationTmpl"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActyDependentAllocationTmpl"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActlIndepStatisticalKeyFigures"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ActlDepStatisticalKeyFigures"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVenture"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVentureRecoveryCode"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVentureEquityType"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVentureObjectType"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVentureClass"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="JointVentureSubClass"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="BudgetCarryingCostCenter"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AvailabilityControlProfile"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AvailabilityControlIsActive"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Fund"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GrantID"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FundIsFixAssigned"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="GrantIDIsFixAssigned"/>
+                                </Record>
+                                <Record Type="SAP__common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="FunctionalAreaIsFixAssigned"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType">
+                <Annotation Term="SAP__common.Label" String="Cost Center"/>
+                <Annotation Term="Communication.Contact">
+                    <Record/>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/I_CostCenter">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="true"/>
+                        <PropertyValue Property="UnsupportedExpressions" EnumMember="SAP__capabilities.SearchExpressions/AND SAP__capabilities.SearchExpressions/OR SAP__capabilities.SearchExpressions/NOT SAP__capabilities.SearchExpressions/group SAP__capabilities.SearchExpressions/phrase"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection/>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ControllingArea"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlkdForPrimaryCostsPosting"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlockedForPlanPrimaryCosts"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="BusinessArea"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterCategory"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCtrResponsibleUser"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostingSheet"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="TaxJurisdiction"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Plant"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterCreatedByUser"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlkdForSecondaryCostsPosting"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlockedForRevenuePosting"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlockedForCommitmentPosting"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlockedForPlanSecondaryCosts"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsBlockedForPlanRevenues"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterAllocationMethod"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ConsumptionQtyIsRecorded"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ConditionUsage"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ConditionApplication"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterAccountingOverhead"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Country"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="POBox"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="PostalCode"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="POBoxPostalCode"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Region"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterPrinterDestination"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterStandardHierArea"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCollector"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterIsComplete"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="IsStatisticalCostCenter"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ObjectInternalID"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterFunction"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CostCenterAlternativeFunction"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="FunctionalArea"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActyIndepFormulaPlanningTmpl"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActyDepdntFormulaPlanningTmpl"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActyIndependentAllocationTmpl"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActyDependentAllocationTmpl"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActlIndepStatisticalKeyFigures"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ActlDepStatisticalKeyFigures"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="JointVentureClass"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="JointVentureSubClass"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="AvailabilityControlProfile"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="AvailabilityControlIsActive"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Fund"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="FundIsFixAssigned"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="GrantIDIsFixAssigned"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="FunctionalAreaIsFixAssigned"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="SAP__aggregation.RollupType/None"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="100"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="5000"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ValidityEndDate">
+                <Annotation Term="SAP__common.Label" String="Valid To"/>
+                <Annotation Term="SAP__common.Heading" String="to"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Valid To Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/ValidityStartDate">
+                <Annotation Term="SAP__common.Label" String="Valid From"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Valid-From Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCtrResponsiblePersonName">
+                <Annotation Term="SAP__common.Label" String="Person Responsible"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterCreationDate">
+                <Annotation Term="SAP__common.Label" String="Entered On"/>
+                <Annotation Term="SAP__common.Heading" String="Ent. On"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Department">
+                <Annotation Term="SAP__common.Label" String="Department"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/FormOfAddress">
+                <Annotation Term="SAP__common.Label" String="Title"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/AddressName">
+                <Annotation Term="SAP__common.Label" String="Name"/>
+                <Annotation Term="SAP__common.Heading" String="Name 1"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Name 1"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/AddressAdditionalName">
+                <Annotation Term="SAP__common.Label" String="Name 2"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterAddrName3">
+                <Annotation Term="SAP__common.Label" String="Name 3"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CostCenterAddrName4">
+                <Annotation Term="SAP__common.Label" String="Name 4"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/CityName">
+                <Annotation Term="SAP__common.Label" String="City"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/District">
+                <Annotation Term="SAP__common.Label" String="District"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/StreetAddressName">
+                <Annotation Term="SAP__common.Label" String="Street"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Street and House Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/Language">
+                <Annotation Term="SAP__common.Label" String="Language Key"/>
+                <Annotation Term="SAP__common.Heading" String="Language"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/TeleboxNumber">
+                <Annotation Term="SAP__common.Label" String="Telebox Number"/>
+                <Annotation Term="SAP__common.Heading" String="Telebox"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/PhoneNumber1">
+                <Annotation Term="SAP__common.Label" String="Telephone 1"/>
+                <Annotation Term="SAP__common.QuickInfo" String="First telephone number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/PhoneNumber2">
+                <Annotation Term="SAP__common.Label" String="Telephone 2"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Second telephone number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/FaxNumber">
+                <Annotation Term="SAP__common.Label" String="Fax Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/TeletexNumber">
+                <Annotation Term="SAP__common.Label" String="Teletex Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/TelexNumber">
+                <Annotation Term="SAP__common.Label" String="Telex Number"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_CostCenterType/DataCommunicationPhoneNumber">
+                <Annotation Term="SAP__common.Label" String="Data line"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Data communication line no."/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

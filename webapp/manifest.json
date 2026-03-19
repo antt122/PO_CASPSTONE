@@ -151,6 +151,11 @@
           "pattern": "PurchaseOrder({key}):?query:",
           "name": "PurchaseOrderObjectPage",
           "target": "PurchaseOrderObjectPage"
+        },
+        {
+          "pattern": "PurchaseOrder({key})/_PoItem({key2}):?query:",
+          "name": "PurchaseOrderItemObjectPage",
+          "target": "PurchaseOrderItemObjectPage"
         }
       ],
       "targets": {
@@ -172,7 +177,22 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "selectionMode": "Multi"
+                  },
+                  "actions": {
+                    "customDeleteAction": {
+                      "id": "customDeleteBtn",
+                      "text": "Delete",
+                      "press": "capstone.ext.controller.ListReportExt.onRequestDelete",
+                      "requiresSelection": true,
+                      "visible": true
+                    },
+                    "viewLogAction": {
+                      "id": "viewLogBtn",
+                      "text": "Log View",
+                      "press": "capstone.ext.controller.ListReportExt.onViewLog",
+                      "requiresSelection": true
+                    }
                   }
                 }
               }
@@ -187,8 +207,41 @@
             "settings": {
               "editableHeaderContent": false,
               "contextPath": "/PurchaseOrder",
+              "content": {
+                "header": {
+                  "actions": {
+                    "requestDeleteHeaderAction": {
+                      "id": "btnRequestDeleteHeader",
+                      "text": "Request Delete",
+                      "press": "capstone.ext.controller.ListReportExt.onRequestDelete",
+                      "visible": true,
+                      "type": "Negative"
+                    }
+                  }
+                }
+              },
+              "navigation": {
+                "_PoItem": {
+                  "detail": {
+                    "route": "PurchaseOrderItemObjectPage"
+                  }
+                }
+              },
               "controlConfiguration": {
                 "_PoItem/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "creationMode": "NewPage",
+                    "selectionMode": "Multi",
+                    "disableStandardDeleteAction": true
+                  },
+                  "actions": {
+                    "deleteItemAction": {
+                      "id": "btnDeleteItem",
+                      "text": "Delete",
+                      "press": "capstone.ext.controller.ItemDelete.onRequestDeleteItem",
+                      "requiresSelection": true
+                    }
+                  },
                   "columns": {
                     "QuantityInput": {
                       "header": "Order Quantity",
@@ -211,6 +264,16 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "PurchaseOrderItemObjectPage": {
+          "type": "Component",
+          "id": "PurchaseOrderItemObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/PurchaseOrder/_PoItem"
             }
           }
         }

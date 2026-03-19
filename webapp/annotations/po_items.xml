@@ -10,9 +10,9 @@
         <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local_poitems">
 
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType">
+            <Annotations Target="SAP__self.PoItemType">
 
                 <!-- ============================================================ -->
                 <!-- HEADER INFO                                                    -->
@@ -163,11 +163,6 @@
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
                         </Record>
 
-                        <!-- Action: Delete Item (requestDeleteItem) -->
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItem_requestDeleteItem"/>
-                            <PropertyValue Property="Label" String="Delete Item"/>
-                        </Record>
 
                     </Collection>
                 </Annotation>

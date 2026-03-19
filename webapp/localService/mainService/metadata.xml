@@ -212,6 +212,9 @@
                 <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="__EntityControl" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.EntityControl"/>
+                <Property Name="__FieldControl" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PoItemControl"/>
+                <Property Name="__OperationControl" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PoItemOperationControl"/>
+                <Property Name="SAP__Messages" Type="Collection(com.sap.gateway.srvd.zui_purchaseorder.v0001.SAP__Message)" Nullable="false"/>
                 <NavigationProperty Name="DraftAdministrativeData" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.I_DraftAdministrativeDataType"/>
                 <NavigationProperty Name="SiblingEntity" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PoItemType"/>
                 <NavigationProperty Name="_PoHeader" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PurchaseOrderType" Nullable="false" Partner="_PoItem">
@@ -232,6 +235,7 @@
                 <Property Name="NewValue" Type="Edm.String" Nullable="false" MaxLength="255"/>
                 <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="12"/>
                 <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ChangeReason" Type="Edm.String" Nullable="false" MaxLength="255"/>
                 <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="ParentDraftUUID" Type="Edm.Guid"/>
@@ -302,6 +306,11 @@
                 <Property Name="PurchOrg" Type="Edm.Byte" Nullable="false"/>
                 <Property Name="Supplier" Type="Edm.Byte" Nullable="false"/>
             </ComplexType>
+            <ComplexType Name="PoItemControl">
+                <Property Name="Material" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="Plant" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="Unit" Type="Edm.Byte" Nullable="false"/>
+            </ComplexType>
             <ComplexType Name="PurchaseOrderCbAControl">
                 <Property Name="_Attachment" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="_PoItem" Type="Edm.Boolean" Nullable="false"/>
@@ -311,9 +320,12 @@
                 <Property Name="Edit" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="requestDelete" Type="Edm.Boolean" Nullable="false"/>
             </ComplexType>
+            <ComplexType Name="PoItemOperationControl">
+                <Property Name="requestDeleteItem" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
             <ComplexType Name="EntityControl">
-                <Property Name="Deletable" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="Updatable" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Deletable" Type="Edm.Boolean" Nullable="false"/>
             </ComplexType>
             <ComplexType Name="SAP__Message">
                 <Property Name="code" Type="Edm.String" Nullable="false"/>
@@ -341,6 +353,10 @@
             </Action>
             <Action Name="Resume" IsBound="true">
                 <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PurchaseOrderType" Nullable="false"/>
+            </Action>
+            <Action Name="requestDeleteItem" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PoItemType" Nullable="false"/>
+                <Parameter Name="Reason" Type="Edm.String" Nullable="false" MaxLength="255"/>
             </Action>
             <Action Name="Activate" EntitySetPath="_it" IsBound="true">
                 <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_purchaseorder.v0001.PurchaseOrderType" Nullable="false"/>
@@ -509,7 +525,6 @@
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/IncompletenessStatus">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Incomplete"/>
                 <Annotation Term="SAP__common.Heading" String="I"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Purchase order not yet complete"/>
@@ -551,9 +566,7 @@
                 <Annotation Term="SAP__common.Heading" String="PayT"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Terms of Payment Key"/>
             </Annotations>
-            <Annotations Target="SAP__self.PurchaseOrderType/FixedExchangeRate">
-                <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Label" String="Fixed Exchange Rate"/>
+            <Annotations Target="SAP__self.PurchaseOrderType/FixedExchangeRate">                <Annotation Term="SAP__common.Label" String="Fixed Exchange Rate"/>
                 <Annotation Term="SAP__common.Heading" String="Fix"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Indicator for Fixed Exchange Rate"/>
             </Annotations>
@@ -575,9 +588,7 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Incoterms (Part 1)"/>
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/GrMessage">
-                <Annotation Term="SAP__common.Label" String="GR Message"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__common.Heading" String="G"/>
+                <Annotation Term="SAP__common.Label" String="GR Message"/>                <Annotation Term="SAP__common.Heading" String="G"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Indicator: Goods Receipt Message"/>
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/QuotationNumber">
@@ -592,9 +603,7 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Change Time Stamp"/>
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/HasDraftEntity">
-                <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
-                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__core.Computed"/>                <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has Draft"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Draft - Indicator - Has draft document"/>
@@ -620,7 +629,6 @@
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/HasActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has active"/>
@@ -628,7 +636,6 @@
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType/IsActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Is active"/>
@@ -751,7 +758,7 @@
                 </Annotation>
                 <Annotation Term="SAP__capabilities.DeleteRestrictions">
                     <Record>
-                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                        <PropertyValue Property="Deletable" Bool="false"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.UpdateRestrictions">
@@ -789,6 +796,11 @@
             </Annotations>
             <Annotations Target="SAP__self.PurchaseOrderType">
                 <Annotation Term="SAP__common.Label" String="Manage Purchase Orders"/>
+                <Annotation Term="SAP__common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>PoNumber</PropertyPath>
+                    </Collection>
+                </Annotation>
                 <Annotation Term="SAP__UI.Facets">
                     <Collection>
                         <Record Type="SAP__UI.CollectionFacet">
@@ -1122,7 +1134,6 @@
             </Annotations>
             <Annotations Target="SAP__self.TextType/HasDraftEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has Draft"/>
@@ -1156,7 +1167,6 @@
             </Annotations>
             <Annotations Target="SAP__self.TextType/HasActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has active"/>
@@ -1164,7 +1174,6 @@
             </Annotations>
             <Annotations Target="SAP__self.TextType/IsActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Is active"/>
@@ -1196,9 +1205,7 @@
                     <Record/>
                 </Annotation>
                 <Annotation Term="SAP__common.DraftActivationVia">
-                    <Collection>
                         <String>SAP__self.Container/PurchaseOrder</String>
-                    </Collection>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.SearchRestrictions">
                     <Record>
@@ -1328,7 +1335,7 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Item Number of Purchasing Document"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/Material">
-                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/Material"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Collection>
@@ -1367,7 +1374,7 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Number of a Manufacturer"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/Plant">
-                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/Plant"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Collection>
@@ -1406,7 +1413,6 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Supplier to be Supplied/Who is to Receive Delivery"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/SupplierIsSubcontractor">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="SC Supplier"/>
                 <Annotation Term="SAP__common.Heading" String="S"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Subcontracting Supplier"/>
@@ -1420,7 +1426,7 @@
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/Unit">
                 <Annotation Term="SAP__common.IsUnit"/>
-                <Annotation Term="SAP__core.Immutable"/>
+                <Annotation Term="SAP__common.FieldControl" Path="__FieldControl/Unit"/>
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Collection>
                         <String>../../../../srvd_f4/sap/i_unitofmeasure/0001;ps='srvd-zui_purchaseorder-0001';va='com.sap.gateway.srvd.zui_purchaseorder.v0001.et-zc_purchaseorderitem.unit'/$metadata</String>
@@ -1523,38 +1529,32 @@
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/IsCompletelyDelivered">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Delivery Completed"/>
                 <Annotation Term="SAP__common.Heading" String="DCI"/>
                 <Annotation Term="SAP__common.QuickInfo" String="&quot;Delivery Completed&quot; Indicator"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/IsFinallyInvoiced">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Final Invoice"/>
                 <Annotation Term="SAP__common.Heading" String="FIn"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Final Invoice Indicator"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/GoodsReceiptIsExpected">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Goods Receipt"/>
                 <Annotation Term="SAP__common.Heading" String="GR"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Goods Receipt Indicator"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/GoodsReceiptIsNonValuated">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="GR non-valuated"/>
                 <Annotation Term="SAP__common.Heading" String="N"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Goods Receipt, Non-Valuated"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/InvoiceIsExpected">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Invoice Receipt"/>
                 <Annotation Term="SAP__common.Heading" String="IR"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Invoice Receipt Indicator"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/InvoiceIsGoodsReceiptBased">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="GR-Based Inv. Verif."/>
                 <Annotation Term="SAP__common.Heading" String="GR-IV"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Indicator: GR-Based Invoice Verification"/>
@@ -1566,7 +1566,6 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Partial Delivery at Item Level (Stock Transfer)"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/UnlimitedOverdeliveryIsAllowed">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Unltd Overdelivery"/>
                 <Annotation Term="SAP__common.Heading" String="Unlimited"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Unlimited Overdelivery Allowed"/>
@@ -1660,8 +1659,7 @@
                 <Annotation Term="SAP__common.Heading" String="VUn"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/HasDraftEntity">
-                <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__core.Computed"/>           
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has Draft"/>
@@ -1695,7 +1693,6 @@
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/HasActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has active"/>
@@ -1703,13 +1700,22 @@
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/IsActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Is active"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Draft - Indicator - Is active document"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType/__EntityControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.PoItemType/__FieldControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.PoItemType/__OperationControl">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
@@ -1735,9 +1741,7 @@
                     <Record/>
                 </Annotation>
                 <Annotation Term="SAP__common.DraftActivationVia">
-                    <Collection>
                         <String>SAP__self.Container/PurchaseOrder</String>
-                    </Collection>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.SearchRestrictions">
                     <Record>
@@ -1763,6 +1767,8 @@
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
                                 <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                                <PropertyPath>__OperationControl</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -1772,25 +1778,20 @@
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
                                 <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__FieldControl</PropertyPath>
+                                <PropertyPath>__OperationControl</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.InsertRestrictions">
                     <Record>
-                        <PropertyValue Property="RequiredProperties">
-                            <Collection>
-                                <PropertyPath>Material</PropertyPath>
-                                <PropertyPath>Plant</PropertyPath>
-                                <PropertyPath>Unit</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
                         <PropertyValue Property="Insertable" Bool="false"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.DeleteRestrictions">
                     <Record>
-                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                        <PropertyValue Property="Deletable" Bool="false"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.UpdateRestrictions">
@@ -1806,6 +1807,13 @@
                 <Annotation Term="SAP__core.OptimisticConcurrency">
                     <Collection/>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.requestDeleteItem(SAP__self.PoItemType)/Reason">
+                <Annotation Term="SAP__common.Label" String="Lý do hủy bỏ"/>
+                <Annotation Term="SAP__UI.ParameterDefaultValue" String="Sai thông tin"/>
+            </Annotations>
+            <Annotations Target="SAP__self.requestDeleteItem(SAP__self.PoItemType)">
+                <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/requestDeleteItem"/>
             </Annotations>
             <Annotations Target="SAP__self.PoItemType">
                 <Annotation Term="SAP__common.Label" String="Purchase Order Item"/>
@@ -1920,9 +1928,6 @@
                 <Annotation Term="SAP__UI.Identification">
                     <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="PoItem"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
                             <PropertyValue Property="Value" Path="Material"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
@@ -1979,6 +1984,11 @@
                             <PropertyValue Property="Value" Path="DeletionIndicator"/>
                             <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/Low"/>
                         </Record>
+                        <Record Type="SAP__UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Delete"/>
+                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.requestDeleteItem(com.sap.gateway.srvd.zui_purchaseorder.v0001.PoItemType)"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="SAP__UI.OperationGroupingType/ChangeSet"/>
+                        </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="SAP__UI.PresentationVariant">
@@ -1993,6 +2003,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="SAP__common.Messages" Path="SAP__Messages"/>
             </Annotations>
             <Annotations Target="SAP__self.PoChangeLogType/LogID">
                 <Annotation Term="SAP__core.Computed"/>
@@ -2011,7 +2022,6 @@
             <Annotations Target="SAP__self.PoChangeLogType/PoItem">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsDigitSequence"/>
-                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Item"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Item Number of Purchasing Document"/>
             </Annotations>
@@ -2047,9 +2057,12 @@
                 <Annotation Term="SAP__common.Heading" String="Time Stamp"/>
                 <Annotation Term="SAP__common.QuickInfo" String="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)"/>
             </Annotations>
+            <Annotations Target="SAP__self.PoChangeLogType/ChangeReason">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Char255"/>
+            </Annotations>
             <Annotations Target="SAP__self.PoChangeLogType/HasDraftEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has Draft"/>
@@ -2082,8 +2095,7 @@
                 <Annotation Term="SAP__common.Label" String="Draft Last Changed On"/>
             </Annotations>
             <Annotations Target="SAP__self.PoChangeLogType/HasActiveEntity">
-                <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__core.Computed"/>               
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has active"/>
@@ -2091,7 +2103,6 @@
             </Annotations>
             <Annotations Target="SAP__self.PoChangeLogType/IsActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Is active"/>
@@ -2118,9 +2129,7 @@
                     <Record/>
                 </Annotation>
                 <Annotation Term="SAP__common.DraftActivationVia">
-                    <Collection>
                         <String>SAP__self.Container/PurchaseOrder</String>
-                    </Collection>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.SearchRestrictions">
                     <Record>
@@ -2170,57 +2179,33 @@
             </Annotations>
             <Annotations Target="SAP__self.PoChangeLogType">
                 <Annotation Term="SAP__common.Label" String="Protect view for ZI_PURCHASEORDERLOGTP"/>
-                <Annotation Term="SAP__UI.HeaderInfo">
-                    <Record>
-                        <PropertyValue Property="TypeName" String="Change Log"/>
-                        <PropertyValue Property="TypeNamePlural" String="Change Logs"/>
-                        <PropertyValue Property="Title">
-                            <Record Type="SAP__UI.DataField">
-                                <PropertyValue Property="Value" Path="FieldName"/>
-                            </Record>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
                 <Annotation Term="SAP__UI.LineItem">
                     <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Field Name"/>
-                            <PropertyValue Property="Value" Path="FieldName"/>
-                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Old Value"/>
-                            <PropertyValue Property="Value" Path="OldValue"/>
-                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/Medium"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="New Value"/>
-                            <PropertyValue Property="Value" Path="NewValue"/>
-                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Changed By"/>
-                            <PropertyValue Property="Value" Path="ChangedBy"/>
-                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/Medium"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Time"/>
+                            <PropertyValue Property="Label" String="Thời gian sửa"/>
                             <PropertyValue Property="Value" Path="ChangedAt"/>
-                            <Annotation Term="SAP__UI.Importance" EnumMember="SAP__UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Người sửa"/>
+                            <PropertyValue Property="Value" Path="ChangedBy"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Trường thay đổi"/>
+                            <PropertyValue Property="Value" Path="FieldName"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Giá trị cũ"/>
+                            <PropertyValue Property="Value" Path="OldValue"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Giá trị mới"/>
+                            <PropertyValue Property="Value" Path="NewValue"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Lý do"/>
+                            <PropertyValue Property="Value" Path="ChangeReason"/>
                         </Record>
                     </Collection>
-                </Annotation>
-                <Annotation Term="SAP__UI.PresentationVariant">
-                    <Record>
-                        <PropertyValue Property="SortOrder">
-                            <Collection>
-                                <Record Type="SAP__common.SortOrderType">
-                                    <PropertyValue Property="Property" PropertyPath="ChangedAt"/>
-                                    <PropertyValue Property="Descending" Bool="true"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
                 </Annotation>
                 <Annotation Term="Communication.Contact">
                     <Record/>
@@ -2253,22 +2238,18 @@
                 <Annotation Term="SAP__common.Label" String="Draft In Process By"/>
             </Annotations>
             <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsKeptByUser">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Draft Is Kept By User"/>
             </Annotations>
             <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsCreatedByMe">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Draft Created By Me"/>
             </Annotations>
             <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsLastChangedByMe">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Draft Last Changed By Me"/>
             </Annotations>
             <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsProcessedByMe">
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Draft In Process By Me"/>
             </Annotations>
@@ -2341,7 +2322,6 @@
             </Annotations>
             <Annotations Target="SAP__self.AttachmentType/HasDraftEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has Draft"/>
@@ -2375,7 +2355,6 @@
             </Annotations>
             <Annotations Target="SAP__self.AttachmentType/HasActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Has active"/>
@@ -2383,7 +2362,6 @@
             </Annotations>
             <Annotations Target="SAP__self.AttachmentType/IsActiveEntity">
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Is active"/>
@@ -2415,9 +2393,7 @@
                     <Record/>
                 </Annotation>
                 <Annotation Term="SAP__common.DraftActivationVia">
-                    <Collection>
                         <String>SAP__self.Container/PurchaseOrder</String>
-                    </Collection>
                 </Annotation>
                 <Annotation Term="SAP__capabilities.SearchRestrictions">
                     <Record>

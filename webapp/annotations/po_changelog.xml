@@ -10,9 +10,9 @@
         <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local_changelogs">
 
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PURCHASEORDERLOGTPType">
+            <Annotations Target="SAP__self.PoChangeLogType">
 
                 <!-- ============================================================ -->
                 <!-- HEADER INFO                                                    -->
@@ -74,7 +74,7 @@
 
                         <!-- changereason (pos 35, HIGH) -->
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="changereason"/>
+                            <PropertyValue Property="Value" Path="ChangeReason"/>
                             <PropertyValue Property="Label" String="Reason"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
@@ -82,7 +82,7 @@
                         <!-- ChangedBy (pos 40, MEDIUM) -->
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ChangedBy"/>
-                            <PropertyValue Property="Label" String="Changed By"/>
+                            <PropertyValue Property="Label" String="ChangedBy"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
                         </Record>
 

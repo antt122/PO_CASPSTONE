@@ -10,12 +10,12 @@
         <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local_notes">
 
             <!-- ================================================================ -->
             <!-- ENTITY-LEVEL ANNOTATIONS                                          -->
             <!-- ================================================================ -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_TextType">
+            <Annotations Target="SAP__self.TextType">
 
                 <!-- ============================================================ -->
                 <!-- FACETS                                                         -->
@@ -103,7 +103,7 @@
                 → Translated as UI.MultiLineText = true on the property.
                    This tells Fiori Elements to render a <TextArea> instead of a single-line <Input>.
             -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_TextType/TextContent">
+            <Annotations Target="SAP__self.TextType/TextContent">
                 <Annotation Term="UI.MultiLineText" Bool="true"/>
             </Annotations>
 

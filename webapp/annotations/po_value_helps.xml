@@ -7,20 +7,13 @@
         <edmx:Include Namespace="com.sap.gateway.srvd.zui_purchaseorder.v0001" Alias="SAP__self"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local_valuehelps">
 
-            <!-- ================================================================ -->
-            <!-- ZC_PurchaseOrder — Property-level annotations                    -->
-            <!-- ================================================================ -->
-
-            <!-- PoNumber: default search element -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/PoNumber">
+            <Annotations Target="SAP__self.PurchaseOrderType/PoNumber">
                 <Annotation Term="Common.Label" String="PO Number"/>
-                <Annotation Term="Common.IsSearchable" Bool="true"/>
             </Annotations>
 
-            <!-- PoType: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/PoType">
+            <Annotations Target="SAP__self.PurchaseOrderType/PoType">
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="false"/>
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
@@ -37,10 +30,8 @@
                 </Annotation>
             </Annotations>
 
-            <!-- Supplier: search + Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/Supplier">
+            <Annotations Target="SAP__self.PurchaseOrderType/Supplier">
                 <Annotation Term="Common.Label" String="Supplier"/>
-                <Annotation Term="Common.IsSearchable" Bool="true"/>
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_Supplier"/>
@@ -56,8 +47,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- CompanyCode: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/CompanyCode">
+            <Annotations Target="SAP__self.PurchaseOrderType/CompanyCode">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_CompanyCode"/>
@@ -73,8 +63,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- PurchOrg: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/PurchOrg">
+            <Annotations Target="SAP__self.PurchaseOrderType/PurchOrg">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_PurchasingOrganization"/>
@@ -90,8 +79,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- PurchGroup: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/PurchGroup">
+            <Annotations Target="SAP__self.PurchaseOrderType/PurchGroup">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_PurchasingGroup"/>
@@ -107,8 +95,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- DocumentCurrency (PO): Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/DocumentCurrency">
+            <Annotations Target="SAP__self.PurchaseOrderType/DocumentCurrency">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_Currency"/>
@@ -124,8 +111,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- PaymentTerms: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/PaymentTerms">
+            <Annotations Target="SAP__self.PurchaseOrderType/PaymentTerms">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_PaymentTerms"/>
@@ -141,8 +127,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- Incoterms1: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderType/Incoterms1">
+            <Annotations Target="SAP__self.PurchaseOrderType/Incoterms1">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_IncotermsClassification"/>
@@ -158,13 +143,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- ================================================================ -->
-            <!-- ZC_PurchaseOrderItem — Property-level annotations                -->
-            <!-- ================================================================ -->
-
-            <!-- Material: search + Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/Material">
-                <Annotation Term="Common.IsSearchable" Bool="true"/>
+            <Annotations Target="SAP__self.PoItemType/Material">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_Product"/>
@@ -180,13 +159,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- ShortText: search element -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/ShortText">
-                <Annotation Term="Common.IsSearchable" Bool="true"/>
-            </Annotations>
-
-            <!-- MaterialGroup: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/MaterialGroup">
+            <Annotations Target="SAP__self.PoItemType/MaterialGroup">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_MaterialGroup"/>
@@ -202,8 +175,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- Unit: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/Unit">
+            <Annotations Target="SAP__self.PoItemType/Unit">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_UnitOfMeasure"/>
@@ -219,8 +191,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- Plant: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/Plant">
+            <Annotations Target="SAP__self.PoItemType/Plant">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_Plant"/>
@@ -236,26 +207,16 @@
                 </Annotation>
             </Annotations>
 
-            <!-- StorageLocation: Value Help WITH additionalBinding (Plant as IN filter) -->
-            <!--
-                ABAP: additionalBinding: [{ localElement: 'Plant', element: 'Plant' }]
-                → Translated as ValueListParameterIn:
-                    - LocalDataProperty = Plant  (value taken FROM the current entity)
-                    - ValueListProperty = Plant  (used to FILTER the value help list)
-                + ValueListParameterOut for the selected StorageLocation.
-            -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/StorageLocation">
+            <Annotations Target="SAP__self.PoItemType/StorageLocation">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_StorageLocation"/>
                         <PropertyValue Property="Parameters">
                             <Collection>
-                                <!-- IN binding: filter the value help by the Plant already entered -->
                                 <Record Type="Common.ValueListParameterIn">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="Plant"/>
                                     <PropertyValue Property="ValueListProperty" String="Plant"/>
                                 </Record>
-                                <!-- OUT binding: write back the selected StorageLocation -->
                                 <Record Type="Common.ValueListParameterOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="StorageLocation"/>
                                     <PropertyValue Property="ValueListProperty" String="StorageLocation"/>
@@ -266,8 +227,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- NetPrice: Value Help (currency unit reference) -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/NetPrice">
+            <Annotations Target="SAP__self.PoItemType/NetPrice">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_Currency"/>
@@ -283,8 +243,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- TaxCode: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/TaxCode">
+            <Annotations Target="SAP__self.PoItemType/TaxCode">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_TaxCode"/>
@@ -300,8 +259,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- AccountAssignmentCategory: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/AccountAssignmentCategory">
+            <Annotations Target="SAP__self.PoItemType/AccountAssignmentCategory">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_AccountAssignmentCategory"/>
@@ -317,8 +275,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- CostCenter: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/CostCenter">
+            <Annotations Target="SAP__self.PoItemType/CostCenter">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_CostCenter"/>
@@ -334,8 +291,7 @@
                 </Annotation>
             </Annotations>
 
-            <!-- GLAccount: Value Help -->
-            <Annotations Target="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItemType/GLAccount">
+            <Annotations Target="SAP__self.PoItemType/GLAccount">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="I_GLAccount"/>
