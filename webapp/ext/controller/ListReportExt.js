@@ -14,60 +14,96 @@ sap.ui.define([
         // 1. TÍNH NĂNG: XÓA PO (Giữ nguyên)
         // ==========================================
 // webapp/ext/controller/ListReportExt.js
-onRequestDelete: function (oEventOrContext, aSelectedContexts) {
-    var oExtensionAPI = this;
-    
-    // 1. XÁC ĐỊNH NGỮ CẢNH THÔNG MINH (Bao trọn mọi trường hợp)
-    var aContexts = [];
-    var bIsObjectPage = false; // Cờ nhận biết đang ở trang chi tiết
+onRequestDelete: function (oContext, aSelectedContexts) {
+            try {
+                var oExtensionAPI = this;
+                var oEditFlow = oExtensionAPI.getEditFlow();
+                
+                var aContexts = [];
+                var bIsObjectPage = false;
 
-    if (aSelectedContexts && aSelectedContexts.length > 0) {
-        aContexts = aSelectedContexts; // Gọi từ List Report
-    } else if (oEventOrContext && typeof oEventOrContext.getSource === "function") {
-        var oContext = oEventOrContext.getSource().getBindingContext();
-        if (oContext) {
-            aContexts = [oContext]; // Gọi từ Header (Trang chi tiết)
-            bIsObjectPage = true;
-        }
-    } else if (oEventOrContext && typeof oEventOrContext.getPath === "function") {
-        aContexts = [oEventOrContext]; // Fallback
-        bIsObjectPage = true;
-    }
+                // 1. NHẬN DIỆN NGỮ CẢNH CỰC KỲ AN TOÀN
+                if (aSelectedContexts && aSelectedContexts.length > 0) {
+                    // Nếu gọi từ bảng (List Report)
+                    aContexts = aSelectedContexts;
+                } else if (oContext && typeof oContext.getPath === "function") {
+                    // Nếu gọi từ Header của trang chi tiết (Object Page)
+                    aContexts = [oContext];
+                    bIsObjectPage = true;
+                }
 
-    if (aContexts.length === 0) {
-        return sap.m.MessageToast.show("Vui lòng chọn PO để xóa!");
-    }
+                if (aContexts.length === 0) {
+                    return sap.m.MessageToast.show("Vui lòng chọn PO để xóa!");
+                }
 
-    // 2. GỌI ACTION XUỐNG BACKEND
-    var oEditFlow = oExtensionAPI.getEditFlow ? oExtensionAPI.getEditFlow() : oExtensionAPI.editFlow;
-    
-    oEditFlow.invokeAction("com.sap.gateway.srvd.zui_purchaseorder.v0001.requestDelete", {
-        contexts: aContexts,
-        skipParameterDialog: false // Hiện popup nhập lý do
-    }).then(function () {
-        sap.m.MessageToast.show("Đã xóa Purchase Order thành công!");
-        
-        // 👇 KHÚC QUAN TRỌNG NHẤT LÀ ĐÂY 👇
-        if (bIsObjectPage) {
-            // Nếu xóa thành công từ trang chi tiết -> Lập tức lùi lại 1 trang
-            window.history.back(); 
-        } else {
-            // Nếu xóa từ bảng -> Chỉ refresh lại bảng
-            aContexts[0].getBinding().refresh();
-        }
+                // KIỂM TRA ĐÂY LÀ NHÁP (DRAFT) HAY THẬT (ACTIVE)
+                var targetContext = aContexts[0];
+                var bIsDraft = targetContext.getProperty("IsActiveEntity") === false;
 
-    }).catch(function (err) {
-        var sError = (err.message || "").toLowerCase();
-        
-        // Hứng lỗi 404 (Nếu Backend xóa nhanh quá Fiori không lấy kịp)
-        if (sError.includes("404") || sError.includes("not found")) {
-             sap.m.MessageToast.show("Đã hủy bản nháp thành công!");
-             if (bIsObjectPage) window.history.back();
-        } else {
-             sap.m.MessageBox.error(err.message || "Lỗi xử lý từ hệ thống.");
-        }
-    });
-},
+                if (bIsDraft) {
+                    // ==========================================
+                    // TRƯỜNG HỢP 1: DRAFT (Sửa riêng chỗ này)
+                    // ==========================================
+                    oEditFlow.deleteDocument(targetContext)
+                        .then(function() {
+                            sap.m.MessageToast.show("Đã hủy bản nháp (Draft) thành công!");
+                            
+                            // Side Effect cho màn hình chính: Nếu đang ở ngoài List Report thì ép bảng Refresh
+                            if (!bIsObjectPage && targetContext.getBinding) {
+                                targetContext.getBinding().refresh(); 
+                            }
+                        })
+                        .catch(function(err) {
+                            alert("Lỗi khi hủy nháp: " + (err.message || ""));
+                        });
+                } else {
+                    // ==========================================
+                    // TRƯỜNG HỢP 2: ACTIVE PO (Giữ nguyên 100% code của bạn)
+                    // ==========================================
+                    oEditFlow.invokeAction("com.sap.gateway.srvd.zui_purchaseorder.v0001.requestDelete", {
+                        contexts: aContexts,
+                        skipParameterDialog: false // Hiện popup nhập lý do
+                    }).then(function () {
+                        sap.m.MessageToast.show("Đã xóa Purchase Order thành công!");
+                        
+                        // 3. ĐIỀU HƯỚNG CHUẨN V4
+                        if (bIsObjectPage) {
+                            // NẾU ĐANG Ở TRANG CHI TIẾT -> TRỞ VỀ TRANG TRƯỚC
+                            if (oExtensionAPI.getRouting) {
+                                oExtensionAPI.getRouting().navigateBack();
+                            } else {
+                                window.history.back(); // Phương án dự phòng
+                            }
+                        } else {
+                            // NẾU ĐANG Ở BẢNG -> REFRESH BẢNG
+                            aContexts[0].getBinding().refresh();
+                        }
+
+                    }).catch(function (err) {
+                        // Hứng lỗi 404 (Nếu Backend xóa quá nhanh, Fiori không Get lại kịp)
+                        var sError = (err.message || "").toLowerCase();
+                        if (sError.indexOf("404") !== -1 || sError.indexOf("not found") !== -1 || sError.indexOf("does not exist") !== -1) {
+                            sap.m.MessageToast.show("Đã hủy bản nháp thành công!");
+                            
+                            if (bIsObjectPage) {
+                                if (oExtensionAPI.getRouting) {
+                                    oExtensionAPI.getRouting().navigateBack();
+                                } else {
+                                    window.history.back();
+                                }
+                            } else {
+                                aContexts[0].getBinding().refresh();
+                            }
+                        } else {
+                            alert("Lỗi Backend: " + err.message);
+                        }
+                    });
+                }
+            } catch (e) {
+                // Hiển thị lỗi thẳng lên màn hình thay vì giấu trong Console
+                alert("Lỗi giao diện (JS): " + e.message);
+            }
+        },
 
         // ==========================================
         // 2. TÍNH NĂNG: XEM LOG CHANGE (Chuẩn Binding)
