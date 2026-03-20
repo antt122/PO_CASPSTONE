@@ -1,9 +1,11 @@
+// 👇 ĐÃ THÊM THƯ VIỆN SORTER VÀO ĐÂY
 sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator"
-], function (MessageToast, Fragment, Filter, FilterOperator) {
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter" 
+], function (MessageToast, Fragment, Filter, FilterOperator, Sorter) {
     "use strict";
 
     var _oLogDialog;
@@ -135,10 +137,14 @@ sap.ui.define([
                         new Filter("PoNumber", FilterOperator.EQ, sPoNumber)
                     ];
 
+                    // 👇 BỔ SUNG: Khai báo Sorter (Sắp xếp theo ChangedAt, giảm dần = true)
+                    var oSorter = new Sorter("ChangedAt", true);
+
                     oLogTable.bindItems({
                         path: "/PoChangeLog", 
                         template: _oLogTemplate,
-                        filters: aFilters
+                        filters: aFilters,
+                        sorter: oSorter // <--- Gắn Sorter vào đây
                     });
 
                     _oLogDialog.open();
@@ -180,7 +186,7 @@ sap.ui.define([
             }
         },
 
-        // ==========================================
+// ==========================================
         // 4. TÍNH NĂNG MỚI: XEM TOÀN BỘ LOG XÓA PO (GLOBAL)
         // ==========================================
         onViewDeletedLogs: function (oEvent) {
@@ -201,21 +207,27 @@ sap.ui.define([
                     
                     oLogTable.unbindItems(); 
 
-                    // 👇 BỘ LỌC KÉP (AND): CHỈ LẤY ĐÚNG DÒNG HEADER BỊ XÓA 👇
+                    // BỘ LỌC KÉP: CHỈ LẤY DÒNG HEADER BỊ XÓA & KHÔNG LẤY LOG RÁC (TRỐNG MÃ)
                     var aFilters = [
                         new Filter({
                             filters: [
                                 new Filter("NewValue", FilterOperator.EQ, "DELETED"),
-                                new Filter("FieldName", FilterOperator.EQ, "PO_HEADER")
+                                new Filter("FieldName", FilterOperator.EQ, "PO_HEADER"),
+                                // THÊM DÒNG NÀY ĐỂ LOẠI BỎ CÁC LOG KHÔNG CÓ MÃ PO
+                                new Filter("PoNumber", FilterOperator.NE, "") 
                             ],
                             and: true // Ép buộc UI5 phải dùng phép toán AND
                         })
                     ];
 
+                    // Khai báo Sorter (Sắp xếp theo ChangedAt, giảm dần = true)
+                    var oSorter = new Sorter("ChangedAt", true);
+
                     oLogTable.bindItems({
                         path: "/PoChangeLog", 
                         template: _oLogTemplate,
-                        filters: aFilters
+                        filters: aFilters,
+                        sorter: oSorter // Gắn Sorter vào đây
                     });
 
                     _oLogDialog.open();
