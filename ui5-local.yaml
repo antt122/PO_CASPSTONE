@@ -34,14 +34,3 @@ server:
           - path: /sap
             url: https://s40.dest
             destination: S40
-    - name: sap-fe-mockserver
-      beforeMiddleware: csp
-      configuration:
-        mountPath: /
-        services:
-          - urlPath: /sap/opu/odata4/iwbep/all/srvd/sap/zui_purchaseorder/0001
-            metadataPath: ./webapp/localService/mainService/metadata.xml
-            mockdataPath: ./webapp/localService/mainService/data
-            generateMockData: true
-            resolveExternalServiceReferences: true
-        annotations: []
