@@ -13,8 +13,7 @@ sap.ui.define([
         // ==========================================
         // 1. TÍNH NĂNG: XÓA PO (Giữ nguyên)
         // ==========================================
-// webapp/ext/controller/ListReportExt.js
-onRequestDelete: function (oContext, aSelectedContexts) {
+        onRequestDelete: function (oContext, aSelectedContexts) {
             try {
                 var oExtensionAPI = this;
                 var oEditFlow = oExtensionAPI.getEditFlow();
@@ -22,12 +21,10 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                 var aContexts = [];
                 var bIsObjectPage = false;
 
-                // 1. NHẬN DIỆN NGỮ CẢNH CỰC KỲ AN TOÀN
+                // NHẬN DIỆN NGỮ CẢNH CỰC KỲ AN TOÀN
                 if (aSelectedContexts && aSelectedContexts.length > 0) {
-                    // Nếu gọi từ bảng (List Report)
                     aContexts = aSelectedContexts;
                 } else if (oContext && typeof oContext.getPath === "function") {
-                    // Nếu gọi từ Header của trang chi tiết (Object Page)
                     aContexts = [oContext];
                     bIsObjectPage = true;
                 }
@@ -41,14 +38,10 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                 var bIsDraft = targetContext.getProperty("IsActiveEntity") === false;
 
                 if (bIsDraft) {
-                    // ==========================================
-                    // TRƯỜNG HỢP 1: DRAFT (Sửa riêng chỗ này)
-                    // ==========================================
+                    // TRƯỜNG HỢP 1: DRAFT 
                     oEditFlow.deleteDocument(targetContext)
                         .then(function() {
                             sap.m.MessageToast.show("Đã hủy bản nháp (Draft) thành công!");
-                            
-                            // Side Effect cho màn hình chính: Nếu đang ở ngoài List Report thì ép bảng Refresh
                             if (!bIsObjectPage && targetContext.getBinding) {
                                 targetContext.getBinding().refresh(); 
                             }
@@ -57,30 +50,24 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                             alert("Lỗi khi hủy nháp: " + (err.message || ""));
                         });
                 } else {
-                    // ==========================================
-                    // TRƯỜNG HỢP 2: ACTIVE PO (Giữ nguyên 100% code của bạn)
-                    // ==========================================
+                    // TRƯỜNG HỢP 2: ACTIVE PO 
                     oEditFlow.invokeAction("com.sap.gateway.srvd.zui_purchaseorder.v0001.requestDelete", {
                         contexts: aContexts,
                         skipParameterDialog: false // Hiện popup nhập lý do
                     }).then(function () {
                         sap.m.MessageToast.show("Đã xóa Purchase Order thành công!");
                         
-                        // 3. ĐIỀU HƯỚNG CHUẨN V4
                         if (bIsObjectPage) {
-                            // NẾU ĐANG Ở TRANG CHI TIẾT -> TRỞ VỀ TRANG TRƯỚC
                             if (oExtensionAPI.getRouting) {
                                 oExtensionAPI.getRouting().navigateBack();
                             } else {
                                 window.history.back(); // Phương án dự phòng
                             }
                         } else {
-                            // NẾU ĐANG Ở BẢNG -> REFRESH BẢNG
                             aContexts[0].getBinding().refresh();
                         }
 
                     }).catch(function (err) {
-                        // Hứng lỗi 404 (Nếu Backend xóa quá nhanh, Fiori không Get lại kịp)
                         var sError = (err.message || "").toLowerCase();
                         if (sError.indexOf("404") !== -1 || sError.indexOf("not found") !== -1 || sError.indexOf("does not exist") !== -1) {
                             sap.m.MessageToast.show("Đã hủy bản nháp thành công!");
@@ -100,13 +87,12 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                     });
                 }
             } catch (e) {
-                // Hiển thị lỗi thẳng lên màn hình thay vì giấu trong Console
                 alert("Lỗi giao diện (JS): " + e.message);
             }
         },
 
         // ==========================================
-        // 2. TÍNH NĂNG: XEM LOG CHANGE (Chuẩn Binding)
+        // 2. TÍNH NĂNG: XEM LOG CHANGE THEO PO ĐƯỢC CHỌN
         // ==========================================
         onViewLog: function (oEvent, aSelectedContexts) {
             try {
@@ -123,9 +109,14 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                 var oModel = oContext.getModel(); 
                 var sPoNumber = oContext.getProperty("PoNumber"); 
                 
-                var that = this; // Giữ lại bối cảnh cho cái nút Đóng
+                // CHỐT CHẶN DRAFT MỚI
+                var bIsDraft = oContext.getProperty("IsActiveEntity") === false;
+                var bHasActive = oContext.getProperty("HasActiveEntity") === true;
 
-                // 👇 HÀM CỤC BỘ: Nhét thẳng vào đây, không xài "this" nữa, an toàn 100%
+                if (!sPoNumber || sPoNumber.trim() === "" || (bIsDraft && !bHasActive)) {
+                    return MessageToast.show("Bản nháp mới chưa có lịch sử thay đổi (Change Log)!");
+                }
+                
                 var fnLoadAndOpen = function () {
                     var oLogTable = sap.ui.core.Fragment.byId("logFrag", "jobLogTable");
 
@@ -137,16 +128,15 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                         }
                     }
                     
-                    oLogTable.unbindItems(); // Xóa data của PO trước (nếu có)
+                    oLogTable.unbindItems(); 
 
-                    // Tạo bộ lọc
+                    // Tạo bộ lọc theo PoNumber
                     var aFilters = [
                         new Filter("PoNumber", FilterOperator.EQ, sPoNumber)
                     ];
 
-                    // Bơm data
                     oLogTable.bindItems({
-                        path: "/PoChangeLog", // CHÚ Ý: Đảm bảo đúng tên Entity Set của bạn
+                        path: "/PoChangeLog", 
                         template: _oLogTemplate,
                         filters: aFilters
                     });
@@ -154,7 +144,7 @@ onRequestDelete: function (oContext, aSelectedContexts) {
                     _oLogDialog.open();
                 };
 
-var oDialogController = {
+                var oDialogController = {
                     onCloseLogDialog: function () {
                         if (_oLogDialog) {
                             _oLogDialog.close();
@@ -162,12 +152,11 @@ var oDialogController = {
                     }
                 };
 
-                // 👇 TRUYỀN MINI CONTROLLER NÀY VÀO LÚC MỞ POP-UP
                 if (!_oLogDialog) {
                     Fragment.load({
                         id: "logFrag",
                         name: "capstone.ext.fragment.LogDialog", 
-                        controller: oDialogController // <--- THAY ĐỔI Ở ĐÂY: Dùng Mini Controller thay vì 'that'
+                        controller: oDialogController 
                     }).then(function (oDialog) {
                         _oLogDialog = oDialog;
                         _oLogDialog.setModel(oModel); 
@@ -188,6 +177,73 @@ var oDialogController = {
         onCloseLogDialog: function () {
             if (_oLogDialog) {
                 _oLogDialog.close();
+            }
+        },
+
+        // ==========================================
+        // 4. TÍNH NĂNG MỚI: XEM TOÀN BỘ LOG XÓA PO (GLOBAL)
+        // ==========================================
+        onViewDeletedLogs: function (oEvent) {
+            try {
+                // Lấy default model của hệ thống
+                var oModel = this.getModel(); 
+                
+                var fnLoadAndOpen = function () {
+                    var oLogTable = sap.ui.core.Fragment.byId("logFrag", "jobLogTable");
+
+                    // Gỡ khuôn (Template)
+                    if (!_oLogTemplate) {
+                        var oBindingInfo = oLogTable.getBindingInfo("items");
+                        if (oBindingInfo) {
+                            _oLogTemplate = oBindingInfo.template;
+                        }
+                    }
+                    
+                    oLogTable.unbindItems(); 
+
+                    // 👇 BỘ LỌC KÉP (AND): CHỈ LẤY ĐÚNG DÒNG HEADER BỊ XÓA 👇
+                    var aFilters = [
+                        new Filter({
+                            filters: [
+                                new Filter("NewValue", FilterOperator.EQ, "DELETED"),
+                                new Filter("FieldName", FilterOperator.EQ, "PO_HEADER")
+                            ],
+                            and: true // Ép buộc UI5 phải dùng phép toán AND
+                        })
+                    ];
+
+                    oLogTable.bindItems({
+                        path: "/PoChangeLog", 
+                        template: _oLogTemplate,
+                        filters: aFilters
+                    });
+
+                    _oLogDialog.open();
+                };
+
+                var oDialogController = {
+                    onCloseLogDialog: function () {
+                        if (_oLogDialog) _oLogDialog.close();
+                    }
+                };
+
+                // Load Fragment nếu chưa có
+                if (!_oLogDialog) {
+                    sap.ui.core.Fragment.load({
+                        id: "logFrag",
+                        name: "capstone.ext.fragment.LogDialog", 
+                        controller: oDialogController 
+                    }).then(function (oDialog) {
+                        _oLogDialog = oDialog;
+                        _oLogDialog.setModel(oModel); 
+                        fnLoadAndOpen(); 
+                    });
+                } else {
+                    fnLoadAndOpen(); 
+                }
+
+            } catch (e) {
+                alert("Lỗi JS: " + e.message);
             }
         }
     };

@@ -192,7 +192,13 @@
                       "text": "Log View",
                       "press": "capstone.ext.controller.ListReportExt.onViewLog",
                       "requiresSelection": true
-                    }
+                    },
+                    "viewDeletedLogAction": {
+                      "id": "viewDeletedLogBtn",
+                      "text": "Deleted PO Logs",
+                      "press": "capstone.ext.controller.ListReportExt.onViewDeletedLogs",
+                      "requiresSelection": false 
+                  }
                   }
                 }
               }
