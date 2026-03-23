@@ -196,8 +196,8 @@
                       "id": "viewDeletedLogBtn",
                       "text": "Deleted PO Logs",
                       "press": "capstone.ext.controller.ListReportExt.onViewDeletedLogs",
-                      "requiresSelection": false 
-                  }
+                      "requiresSelection": false
+                    }
                   }
                 }
               }
@@ -235,7 +235,9 @@
               "controlConfiguration": {
                 "_PoItem/@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "creationMode": "NewPage",
+                    "creationMode": {
+                      "name": "NewPage"
+                    },
                     "selectionMode": "Multi",
                     "disableStandardDeleteAction": true
                   },
@@ -264,7 +266,7 @@
                         "placement": "After"
                       },
                       "template": "capstone.ext.fragment.PriceInput",
-                      "availability": "Hidden"
+                      "availability": "Default"
                     }
                   }
                 }
