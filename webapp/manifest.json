@@ -218,7 +218,7 @@
                     "requestDeleteHeaderAction": {
                       "id": "btnRequestDeleteHeader",
                       "text": "Request Delete",
-                      "press": "capstone.ext.controller.ListReportExt.onRequestDelete",
+                      "press": "capstone.ext.controller.ObjectPageExt.onRequestDelete",
                       "visible": true,
                       "type": "Negative"
                     }
