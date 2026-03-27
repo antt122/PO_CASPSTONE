@@ -90,27 +90,6 @@
                             </PropertyValue>
                         </Record>
 
-                        <!-- Collection: Delivery & Payment (pos 20) -->
-                        <Record Type="UI.CollectionFacet">
-                            <PropertyValue Property="ID" String="DeliveryInvoice"/>
-                            <PropertyValue Property="Label" String="Delivery &amp; Payment"/>
-                            <PropertyValue Property="Facets">
-                                <Collection>
-                                    <!-- Terms: FieldGroup Reference (pos 10) -->
-                                    <Record Type="UI.ReferenceFacet">
-                                        <PropertyValue Property="ID" String="PaymentTerms"/>
-                                        <PropertyValue Property="Label" String="Terms"/>
-                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TermsGroup"/>
-                                    </Record>
-                                    <!-- Discount: FieldGroup Reference (pos 20) -->
-                                    <Record Type="UI.ReferenceFacet">
-                                        <PropertyValue Property="ID" String="Discount"/>
-                                        <PropertyValue Property="Label" String="Cash Discounts"/>
-                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#DiscountGroup"/>
-                                    </Record>
-                                </Collection>
-                            </PropertyValue>
-                        </Record>
 
                         <!-- LineItem Reference: Po Items (pos 30) -->
                         <Record Type="UI.ReferenceFacet">
