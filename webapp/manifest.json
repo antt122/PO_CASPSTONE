@@ -196,8 +196,8 @@
                       "id": "viewDeletedLogBtn",
                       "text": "Deleted PO Logs",
                       "press": "capstone.ext.controller.ListReportExt.onViewDeletedLogs",
-                      "requiresSelection": false
-                    }
+                      "requiresSelection": false 
+                  }
                   }
                 }
               }
@@ -235,9 +235,7 @@
               "controlConfiguration": {
                 "_PoItem/@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "creationMode": {
-                      "name": "NewPage"
-                    },
+                    "creationMode": "NewPage",
                     "selectionMode": "Multi",
                     "disableStandardDeleteAction": true
                   },
@@ -248,26 +246,6 @@
                       "press": "capstone.ext.controller.ItemDelete.onRequestDeleteItem",
                       "requiresSelection": true,
                       "enabled": "{= ${$view>/#capstone::PurchaseOrderObjectPage--fe::table::_PoItem::LineItem-innerTable/items}.length > 1 }"
-                    }
-                  },
-                  "columns": {
-                    "QuantityInput": {
-                      "header": "Order Quantity",
-                      "position": {
-                        "anchor": "DataField::ShortText",
-                        "placement": "After"
-                      },
-                      "template": "capstone.ext.fragment.QuantityInput",
-                      "availability": "Hidden"
-                    },
-                    "PriceInput": {
-                      "header": "Net Order Price",
-                      "position": {
-                        "anchor": "DataField::Quantity",
-                        "placement": "After"
-                      },
-                      "template": "capstone.ext.fragment.PriceInput",
-                      "availability": "Default"
                     }
                   }
                 }
