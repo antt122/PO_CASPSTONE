@@ -246,7 +246,8 @@
                       "id": "btnDeleteItem",
                       "text": "Delete",
                       "press": "capstone.ext.controller.ItemDelete.onRequestDeleteItem",
-                      "requiresSelection": true
+                      "requiresSelection": true,
+                      "enabled": "{= ${$view>/#capstone::PurchaseOrderObjectPage--fe::table::_PoItem::LineItem-innerTable/items}.length > 1 }"
                     }
                   },
                   "columns": {
