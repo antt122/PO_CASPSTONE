@@ -7,9 +7,6 @@
                     
                     <Column id="colTime" width="180px"><Text id="lblTime" text="Changed At" /></Column>
                     <Column id="colUser" width="120px"><Text id="lblUser" text="Changed By" /></Column>
-                    <Column id="colField" width="140px"><Text id="lblField" text="Field Name" /></Column>
-                    <Column id="colOld"><Text id="lblOld" text="Old Value" /></Column>
-                    <Column id="colNew"><Text id="lblNew" text="New Value" /></Column>
                     <Column id="colReason"><Text id="lblReason" text="Change Reason" /></Column>
                 </columns>
                 <items>
@@ -19,9 +16,6 @@
                             
                             <Text id="txtChangedAt" text="{ChangedAt}"/>
                             <Text id="txtChangedBy" text="{ChangedBy}"/>
-                            <Text id="txtFieldName" text="{FieldName}"/>
-                            <Text id="txtOldValue" text="{OldValue}"/>
-                            <Text id="txtNewValue" text="{NewValue}"/>
                             <Text id="txtChangeReason" text="{ChangeReason}"/>
                         </cells>
                     </ColumnListItem>

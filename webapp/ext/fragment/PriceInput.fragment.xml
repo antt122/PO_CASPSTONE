@@ -1,8 +1,13 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Input 
-        id="inputPrice"
-        value="{NetPrice}" 
-        change=".extension.capstone.ext.controller.ItemCalculation.onPriceChange" 
-        textAlign="Right" 
-    />
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <VBox id="idCustomPriceVBox">
+        
+        <Text id="idCustomPriceText" 
+              text="{NetPrice}" 
+              visible="{= !${ui>/isEditable} }" />
+        
+        <Input id="idCustomPriceInput" 
+               value="{NetPrice}" 
+               visible="{ui>/isEditable}" />
+               
+    </VBox>
 </core:FragmentDefinition>

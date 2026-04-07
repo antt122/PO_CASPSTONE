@@ -99,11 +99,28 @@
                         </Record>
 
                         <!-- LineItem Reference: Change History (pos 40) -->
+                        <!-- <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="ChangeLog"/>
+                            <PropertyValue Property="Label" String="Change History"/>
+                            <PropertyValue Property="Target" AnnotationPath="_PoChangeLog/@UI.LineItem"/>
+                        </Record> -->
+
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="ID" String="ChangeLog"/>
                             <PropertyValue Property="Label" String="Change History"/>
                             <PropertyValue Property="Target" AnnotationPath="_PoChangeLog/@UI.LineItem"/>
-                        </Record>
+                            
+                            <Annotation Term="UI.Hidden">
+                                <If>
+                                    <Eq>
+                                        <Path>PoNumber</Path>
+                                        <String></String>
+                                    </Eq>
+                                    <Bool>true</Bool>
+                                    <Bool>false</Bool>
+                                </If>
+                            </Annotation>
+                            </Record>
 
                         <!-- LineItem Reference: Attachments (pos 50) -->
                         <Record Type="UI.ReferenceFacet">

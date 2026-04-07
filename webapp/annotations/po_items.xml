@@ -204,10 +204,10 @@
                         </Record>
 
                         <!-- Action: Delete Item (requestDeleteItem) -->
-                        <Record Type="UI.DataFieldForAction">
+                        <!-- <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItem_requestDeleteItem"/>
                             <PropertyValue Property="Label" String="Delete Item"/>
-                        </Record>
+                        </Record> -->
 
                     </Collection>
                 </Annotation>
