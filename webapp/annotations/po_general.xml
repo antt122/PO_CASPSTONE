@@ -17,6 +17,337 @@
 
             <Annotations Target="SAP__self.PurchaseOrderType">
 
+                <!-- ============================================================ -->
+                <!-- HEADER INFO                                                    -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Purchase Order"/>
+                        <PropertyValue Property="TypeNamePlural" String="Purchase Orders"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="PoNumber"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Supplier"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- PRESENTATION VARIANT (Sort by LocalLastChangedAt DESC)        -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.PresentationVariant">
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="LocalLastChangedAt"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- SEARCH                                                         -->
+                <!-- ============================================================ -->
+                    <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="true"/>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FACETS                                                         -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+
+                        <!-- Collection: General Information (pos 10) -->
+                        <Record Type="UI.CollectionFacet">
+                            <PropertyValue Property="ID" String="General"/>
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="Facets">
+                                <Collection>
+                                    <!-- Basic Data: Identification Reference (pos 10) -->
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="BasicData"/>
+                                        <PropertyValue Property="Label" String="Basic Data"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+                                    </Record>
+                                    <!-- Organization: FieldGroup Reference (pos 20) -->
+                                    <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="OrgData"/>
+                                        <PropertyValue Property="Label" String="Organization"/>
+                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#OrgGroup"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+
+
+                        <!-- LineItem Reference: Po Items (pos 30) -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="PoItems"/>
+                            <PropertyValue Property="Label" String="Line Items"/>
+                            <PropertyValue Property="Target" AnnotationPath="_PoItem/@UI.LineItem"/>
+                        </Record>
+
+                        <!-- LineItem Reference: Change History (pos 40) -->
+                        <!-- <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="ChangeLog"/>
+                            <PropertyValue Property="Label" String="Change History"/>
+                            <PropertyValue Property="Target" AnnotationPath="_PoChangeLog/@UI.LineItem"/>
+                        </Record> -->
+
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="ChangeLog"/>
+                            <PropertyValue Property="Label" String="Change History"/>
+                            <PropertyValue Property="Target" AnnotationPath="_PoChangeLog/@UI.LineItem"/>
+                            
+                            <Annotation Term="UI.Hidden">
+                                <If>
+                                    <Eq>
+                                        <Path>PoNumber</Path>
+                                        <String></String>
+                                    </Eq>
+                                    <Bool>true</Bool>
+                                    <Bool>false</Bool>
+                                </If>
+                            </Annotation>
+                            </Record>
+
+                        <!-- LineItem Reference: Attachments (pos 50) -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="Attachments"/>
+                            <PropertyValue Property="Label" String="Attachments"/>
+                            <PropertyValue Property="Target" AnnotationPath="_Attachment/@UI.LineItem"/>
+                        </Record>
+
+                        <!-- LineItem Reference: Notes (pos 60) -->
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="Notes"/>
+                            <PropertyValue Property="Label" String="Notes"/>
+                            <PropertyValue Property="Target" AnnotationPath="_PoText/@UI.LineItem"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- LINE ITEM                                                      -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+
+                        <!-- PO Number (pos 10, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoNumber"/>
+                            <PropertyValue Property="Label" String="PO Number"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                        <!-- PO Type (pos 20, MEDIUM) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoType"/>
+                            <PropertyValue Property="Label" String="Type"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+
+                        <!-- Supplier (pos 30, HIGH) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Supplier"/>
+                            <PropertyValue Property="Label" String="Supplier"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+
+                        <!-- Company Code (pos 40, MEDIUM) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CompanyCode"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+
+                        <!-- Purchasing Group (pos 45, LOW) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PurchGroup"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+                        </Record>
+
+                        <!-- PO Date (pos 50) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoDate"/>
+                            <PropertyValue Property="Label" String="PO Date"/>
+                        </Record>
+
+                        <!-- Processing Status (pos 90, LOW) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ProcessingStatus"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+                        </Record>
+
+
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- IDENTIFICATION                                                 -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Identification">
+                    <Collection>
+
+                        <!-- PO Number (pos 10) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoNumber"/>
+                            <PropertyValue Property="Label" String="PO Number"/>
+                        </Record>
+
+                        <!-- PO Type (pos 20) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoType"/>
+                            <PropertyValue Property="Label" String="Order Type"/>
+                        </Record>
+
+                        <!-- Supplier (pos 30) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Supplier"/>
+                            <PropertyValue Property="Label" String="Supplier"/>
+                        </Record>
+
+                        <!-- PO Date (pos 40) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PoDate"/>
+                            <PropertyValue Property="Label" String="PO Date"/>
+                        </Record>
+
+                        <!-- Created On (pos 50) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CreatedDate"/>
+                            <PropertyValue Property="Label" String="Created On"/>
+                        </Record>
+
+                        <!-- Created By (pos 60) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CreatedBy"/>
+                            <PropertyValue Property="Label" String="Created By"/>
+                        </Record>
+
+                        <!-- Document Currency (pos 70) -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DocumentCurrency"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FIELD GROUP: OrgGroup                                          -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.FieldGroup" Qualifier="OrgGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <!-- Company Code (pos 10) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CompanyCode"/>
+                                </Record>
+                                <!-- Purchasing Org (pos 20) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PurchOrg"/>
+                                </Record>
+                                <!-- Purchasing Group (pos 30) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PurchGroup"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FIELD GROUP: TermsGroup                                        -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.FieldGroup" Qualifier="TermsGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <!-- Payment Terms (pos 10) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PaymentTerms"/>
+                                </Record>
+                                <!-- Incoterms1 (pos 20) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Incoterms1"/>
+                                </Record>
+                                <!-- Incoterms2 / Location (pos 30) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Incoterms2"/>
+                                    <PropertyValue Property="Label" String="Incoterms Location"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- FIELD GROUP: DiscountGroup                                     -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.FieldGroup" Qualifier="DiscountGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <!-- Days 1 (pos 10) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CashDiscount1Days"/>
+                                    <PropertyValue Property="Label" String="Days 1"/>
+                                </Record>
+                                <!-- Percent 1 (pos 20) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CashDiscount1Percent"/>
+                                    <PropertyValue Property="Label" String="Percent 1"/>
+                                </Record>
+                                <!-- Days 2 (pos 30) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CashDiscount2Days"/>
+                                    <PropertyValue Property="Label" String="Days 2"/>
+                                </Record>
+                                <!-- Percent 2 (pos 40) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CashDiscount2Percent"/>
+                                    <PropertyValue Property="Label" String="Percent 2"/>
+                                </Record>
+                                <!-- Net Days (pos 50) -->
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CashDiscount3Days"/>
+                                    <PropertyValue Property="Label" String="Net Days"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- SELECTION FIELDS                                               -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>PoNumber</PropertyPath>
+                        <PropertyPath>PoType</PropertyPath>
+                        <PropertyPath>Supplier</PropertyPath>
+                        <PropertyPath>CompanyCode</PropertyPath>
+                        <PropertyPath>PurchOrg</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- ============================================================ -->
+                <!-- HIDDEN FIELDS                                                  -->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.Hidden" Path="LocalLastChangedAt"/>
+                <Annotation Term="UI.Hidden" Path="DeletionIndicator"/>
+
             </Annotations>
 
         </Schema>
