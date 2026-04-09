@@ -14,9 +14,8 @@
 
             <Annotations Target="SAP__self.PoItemType">
 
-                
                 <!-- ============================================================ -->
-                <!-- HEADER INFO                                                    -->
+                <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
@@ -36,7 +35,7 @@
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- PRESENTATION VARIANT (Sort by PoItem ASC)                     -->
+                <!-- PRESENTATION VARIANT (Sort by PoItem ASC)                    -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.PresentationVariant">
                     <Record Type="UI.PresentationVariantType">
@@ -52,11 +51,10 @@
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- FACETS                                                         -->
+                <!-- FACETS                                                       -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.Facets">
                     <Collection>
-
                         <!-- Collection: General Information (pos 10) -->
                         <Record Type="UI.CollectionFacet">
                             <PropertyValue Property="ID" String="General"/>
@@ -65,46 +63,40 @@
                                 <Collection>
                                     <!-- Product Data: Identification Reference (pos 10) -->
                                     <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="BasicDataFacet"/>
                                         <PropertyValue Property="Label" String="Product Data"/>
                                         <PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
                                     </Record>
                                     <!-- Logistics: FieldGroup Reference (pos 20) -->
                                     <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="LogisticsFacet"/>
                                         <PropertyValue Property="Label" String="Logistics"/>
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#LogisticsGroup"/>
                                     </Record>
-                                </Collection>
-                            </PropertyValue>
-                        </Record>
-
-                        <!-- Collection: Pricing & Finance (pos 20) -->
-                        <Record Type="UI.CollectionFacet">
-                            <PropertyValue Property="ID" String="PricingFinance"/>
-                            <PropertyValue Property="Label" String="Pricing &amp; Finance"/>
-                            <PropertyValue Property="Facets">
-                                <Collection>
-                                    <!-- Amounts & Tax: FieldGroup Reference (pos 10) -->
+                                    <!-- Amounts & Tax: FieldGroup Reference (pos 30) - Moved to General -->
                                     <Record Type="UI.ReferenceFacet">
+                                        <PropertyValue Property="ID" String="PriceFacet"/>
                                         <PropertyValue Property="Label" String="Amounts &amp; Tax"/>
                                         <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#PriceGroup"/>
                                     </Record>
-                                    <!-- Account Assignment: FieldGroup Reference (pos 20) -->
-                                    <Record Type="UI.ReferenceFacet">
-                                        <PropertyValue Property="Label" String="Account Assignment"/>
-                                        <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#AcctGroup"/>
-                                    </Record>
                                 </Collection>
                             </PropertyValue>
                         </Record>
-
                     </Collection>
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- LINE ITEM                                                      -->
+                <!-- LINE ITEM                                                    -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.LineItem">
                     <Collection>
+                        
+                        <!-- Action: Delete Item -->
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItem_requestDeleteItem"/>
+                            <PropertyValue Property="Label" String="Delete"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/ChangeSet"/>
+                        </Record>
 
                         <!-- PoItem (pos 10, HIGH) -->
                         <Record Type="UI.DataField">
@@ -147,6 +139,12 @@
                             <PropertyValue Property="Value" Path="StorageLocation"/>
                         </Record>
 
+                        <!-- Delivery Date (pos 48) - MỚI ĐƯỢC BỔ SUNG Ở FE -->
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DeliveryDate"/>
+                            <PropertyValue Property="Label" String="Delivery Date"/>
+                        </Record>
+
                         <!-- NetPrice (pos 50) -->
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="NetPrice"/>
@@ -164,12 +162,11 @@
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
                         </Record>
 
-
                     </Collection>
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- IDENTIFICATION                                                 -->
+                <!-- IDENTIFICATION                                               -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.Identification">
                     <Collection>
@@ -204,17 +201,11 @@
                             <PropertyValue Property="Value" Path="Unit"/>
                         </Record>
 
-                        <!-- Action: Delete Item (requestDeleteItem) -->
-                        <!-- <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItem_requestDeleteItem"/>
-                            <PropertyValue Property="Label" String="Delete Item"/>
-                        </Record> -->
-
                     </Collection>
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- FIELD GROUP: LogisticsGroup                                    -->
+                <!-- FIELD GROUP: LogisticsGroup                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.FieldGroup" Qualifier="LogisticsGroup">
                     <Record Type="UI.FieldGroupType">
@@ -228,15 +219,10 @@
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="StorageLocation"/>
                                 </Record>
-                                <!-- PurchaseRequisition (pos 50) -->
+                                <!-- DeliveryDate (pos 30) - MỚI ĐƯỢC BỔ SUNG Ở FE -->
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="PurchaseRequisition"/>
-                                    <PropertyValue Property="Label" String="Purchase Req."/>
-                                </Record>
-                                <!-- PurchaseRequisitionItem (pos 55) -->
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="PurchaseRequisitionItem"/>
-                                    <PropertyValue Property="Label" String="PR Item"/>
+                                    <PropertyValue Property="Value" Path="DeliveryDate"/>
+                                    <PropertyValue Property="Label" String="Delivery Date"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -244,7 +230,7 @@
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- FIELD GROUP: PriceGroup                                        -->
+                <!-- FIELD GROUP: PriceGroup                                      -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.FieldGroup" Qualifier="PriceGroup">
                     <Record Type="UI.FieldGroupType">
@@ -258,41 +244,13 @@
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="NetAmount"/>
                                 </Record>
-                                <!-- TaxCode (pos 30) -->
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="TaxCode"/>
-                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
 
                 <!-- ============================================================ -->
-                <!-- FIELD GROUP: AcctGroup                                         -->
-                <!-- ============================================================ -->
-                <Annotation Term="UI.FieldGroup" Qualifier="AcctGroup">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue Property="Data">
-                            <Collection>
-                                <!-- AccountAssignmentCategory (pos 10) -->
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="AccountAssignmentCategory"/>
-                                </Record>
-                                <!-- CostCenter (pos 20) -->
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="CostCenter"/>
-                                </Record>
-                                <!-- GLAccount (pos 30) -->
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="GLAccount"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-
-                <!-- ============================================================ -->
-                <!-- HIDDEN FIELDS                                                  -->
+                <!-- HIDDEN FIELDS                                                -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.Hidden" Path="PoNumber"/>
                 <Annotation Term="UI.Hidden" Path="DocumentCurrency"/>
