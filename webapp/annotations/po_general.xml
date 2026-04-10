@@ -18,6 +18,11 @@
             <Annotations Target="SAP__self.PurchaseOrderType">
 
                 <!-- ============================================================ -->
+                <!-- ẨN NÚT DELETE CHUẨN CỦA SAP (Cả ở List Report và Object Page)-->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+
+                <!-- ============================================================ -->
                 <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.HeaderInfo">
@@ -133,15 +138,7 @@
                 <!-- LINE ITEM (LIST REPORT - Màn hình danh sách ngoài cùng)      -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.LineItem">
-                    <Collection>
-
-                        <!-- ĐÃ ẨN NÚT DELETE CUSTOM Ở MÀN HÌNH NGOÀI CÙNG ĐỂ TRÁNH BỊ TRÙNG VỚI NÚT XÓA DRAFT CỦA SAP -->
-                        <!-- 
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_requestDelete"/>
-                            <PropertyValue Property="Label" String="Delete"/>
-                        </Record> 
-                        -->
+                    <Collection> 
 
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="PoNumber"/>
@@ -195,12 +192,6 @@
                 <!-- ============================================================ -->
                 <Annotation Term="UI.Identification">
                     <Collection>
-
-                        <!-- ĐỔI TÊN NÚT Ở TRONG MÀN HÌNH CHI TIẾT THÀNH "Request Delete" ĐỂ DỄ PHÂN BIỆT -->
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_requestDelete"/>
-                            <PropertyValue Property="Label" String="Request Delete"/>
-                        </Record>
 
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="PoNumber"/>
