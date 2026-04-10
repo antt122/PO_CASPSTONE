@@ -18,11 +18,6 @@
             <Annotations Target="SAP__self.PurchaseOrderType">
 
                 <!-- ============================================================ -->
-                <!-- ẨN NÚT DELETE CHUẨN CỦA SAP (Cả ở List Report và Object Page)-->
-                <!-- ============================================================ -->
-                <Annotation Term="UI.DeleteHidden" Bool="true"/>
-
-                <!-- ============================================================ -->
                 <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.HeaderInfo">
@@ -140,11 +135,13 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
 
-                        <!-- ĐÃ MỞ LẠI NÚT DELETE CUSTOM CỦA BẠN -->
+                        <!-- ĐÃ ẨN NÚT DELETE CUSTOM Ở MÀN HÌNH NGOÀI CÙNG ĐỂ TRÁNH BỊ TRÙNG VỚI NÚT XÓA DRAFT CỦA SAP -->
+                        <!-- 
                         <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_requestDelete"/>
                             <PropertyValue Property="Label" String="Delete"/>
                         </Record> 
+                        -->
 
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="PoNumber"/>
