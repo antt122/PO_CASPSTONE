@@ -15,6 +15,45 @@
             <Annotations Target="SAP__self.PoItemType">
 
                 <!-- ============================================================ -->
+                <!-- SIDE EFFECTS (Kích hoạt tự động update dữ liệu màn hình)       -->
+                <!-- ============================================================ -->
+                
+                <!-- 1. Khi đổi Material -> Kéo Unit (và ShortText nếu có) từ Backend lên -->
+                <Annotation Term="Common.SideEffects" Qualifier="UpdateUnitFromMaterial">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Material</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>Unit</PropertyPath>
+                                <!-- Nếu sau này ABAP tự kéo ShortText, bạn mở comment dòng dưới -->
+                                <!-- <PropertyPath>ShortText</PropertyPath> -->
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- 2. Khi đổi Số lượng hoặc Giá -> Tính lại Cột Thành Tiền (NetAmount) -->
+                <Annotation Term="Common.SideEffects" Qualifier="CalculateNetAmount">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Quantity</PropertyPath>
+                                <PropertyPath>NetPrice</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>NetAmount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- ============================================================ -->
                 <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.HeaderInfo">
@@ -139,7 +178,7 @@
                             <PropertyValue Property="Value" Path="StorageLocation"/>
                         </Record>
 
-                        <!-- Delivery Date (pos 48) - MỚI ĐƯỢC BỔ SUNG Ở FE -->
+                        <!-- Delivery Date (pos 48) -->
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="DeliveryDate"/>
                             <PropertyValue Property="Label" String="Delivery Date"/>
@@ -219,7 +258,7 @@
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="StorageLocation"/>
                                 </Record>
-                                <!-- DeliveryDate (pos 30) - MỚI ĐƯỢC BỔ SUNG Ở FE -->
+                                <!-- DeliveryDate (pos 30) -->
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="DeliveryDate"/>
                                     <PropertyValue Property="Label" String="Delivery Date"/>
