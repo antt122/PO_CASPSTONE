@@ -18,6 +18,11 @@
             <Annotations Target="SAP__self.PurchaseOrderType">
 
                 <!-- ============================================================ -->
+                <!-- ẨN NÚT DELETE CHUẨN CỦA SAP (Cả ở List Report và Object Page)-->
+                <!-- ============================================================ -->
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+
+                <!-- ============================================================ -->
                 <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
                 <Annotation Term="UI.HeaderInfo">
@@ -88,8 +93,6 @@
                             </PropertyValue>
                         </Record>
 
-                        <!-- ĐÃ XÓA TAB "DELIVERY & PAYMENT" Ở ĐÂY -->
-
                         <!-- LineItems Reference: Po Items (pos 30) -->
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="ID" String="PoItems"/>
@@ -137,10 +140,11 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
 
+                        <!-- ĐÃ MỞ LẠI NÚT DELETE CUSTOM CỦA BẠN -->
                         <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_requestDelete"/>
                             <PropertyValue Property="Label" String="Delete"/>
-                        </Record>
+                        </Record> 
 
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="PoNumber"/>
@@ -195,9 +199,10 @@
                 <Annotation Term="UI.Identification">
                     <Collection>
 
+                        <!-- ĐỔI TÊN NÚT Ở TRONG MÀN HÌNH CHI TIẾT THÀNH "Request Delete" ĐỂ DỄ PHÂN BIỆT -->
                         <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrder_requestDelete"/>
-                            <PropertyValue Property="Label" String="Delete"/>
+                            <PropertyValue Property="Label" String="Request Delete"/>
                         </Record>
 
                         <Record Type="UI.DataField">
@@ -215,10 +220,6 @@
                             <PropertyValue Property="Label" String="Supplier"/>
                         </Record>
 
-                        
-
-                        <!-- ĐÃ XÓA TRƯỜNG DELIVERY DATE Ở ĐÂY -->
-
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="CreatedDate"/>
                             <PropertyValue Property="Label" String="Created On"/>
@@ -228,8 +229,6 @@
                             <PropertyValue Property="Value" Path="CreatedBy"/>
                             <PropertyValue Property="Label" String="Created By"/>
                         </Record>
-
-                        <!-- ĐÃ XÓA TRƯỜNG DOCUMENT CURRENCY Ở ĐÂY -->
 
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ReleaseCode"/>
@@ -260,8 +259,6 @@
                     </Record>
                 </Annotation>
 
-                <!-- ĐÃ XÓA FIELD GROUP: TermsGroup và DiscountGroup VÌ KHÔNG CÒN DÙNG -->
-
                 <!-- ============================================================ -->
                 <!-- SELECTION FIELDS (FILTER BAR)                                -->
                 <!-- ============================================================ -->
@@ -285,5 +282,5 @@
             </Annotations>
 
         </Schema>
-    </edmx:DataServices>
+    </edmx:DataServices> 
 </edmx:Edmx>
