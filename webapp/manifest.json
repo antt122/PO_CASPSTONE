@@ -196,8 +196,8 @@
                       "id": "viewDeletedLogBtn",
                       "text": "Deleted PO Logs",
                       "press": "capstone.ext.controller.ListReportExt.onViewDeletedLogs",
-                      "requiresSelection": false 
-                  }
+                      "requiresSelection": false
+                    }
                   }
                 }
               }
@@ -210,6 +210,11 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
+              "controllerExtensions": {
+                "sap.fe.templates.ObjectPage.ObjectPageController": {
+                  "controllerName": "capstone.ext.controller.ObjectPageExt"
+                }
+              },
               "editableHeaderContent": false,
               "contextPath": "/PurchaseOrder",
               "content": {
@@ -269,7 +274,7 @@
       "extensions": {
         "sap.ui.controllerExtensions": {
           "sap.fe.templates.ObjectPage.ObjectPageController": {
-            "controllerName": "capstone.ext.controller.ItemCalculation"
+            "controllerName": "capstone.ext.controller.ObjectPageExt"
           }
         }
       }

@@ -222,6 +222,12 @@
                             <PropertyValue Property="Value" Path="ReleaseCode"/>
                             <PropertyValue Property="Label" String="Release Code"/>
                         </Record>
+                        
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DeliveryDate"/>
+                            <PropertyValue Property="Label" String="Delivery Date (Mass Update)"/>
+                            <Annotation Term="UI.Hidden" Path="IsActiveEntity"/>
+                        </Record>
 
                     </Collection>
                 </Annotation>

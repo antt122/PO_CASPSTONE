@@ -130,12 +130,7 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         
-                        <!-- Action: Delete Item -->
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_purchaseorder.v0001.ZC_PurchaseOrderItem_requestDeleteItem"/>
-                            <PropertyValue Property="Label" String="Delete"/>
-                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/ChangeSet"/>
-                        </Record>
+
 
                         <!-- PoItem (pos 10, HIGH) -->
                         <Record Type="UI.DataField">
