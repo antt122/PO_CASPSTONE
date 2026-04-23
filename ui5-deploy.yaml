@@ -20,6 +20,6 @@ builder:
         app:
           name: ZF15300
           package: ZSP26_GSP15_CAPSTONE
-          transport: S40K908785
+          transport: S40K917959
         exclude:
           - /test/

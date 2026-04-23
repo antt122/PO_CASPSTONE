@@ -14,14 +14,22 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local_general">
-
             <Annotations Target="SAP__self.PurchaseOrderType">
-
-                <!-- ============================================================ -->
-                <!-- ẨN NÚT DELETE CHUẨN CỦA SAP (Cả ở List Report và Object Page)-->
-                <!-- ============================================================ -->
                 <Annotation Term="UI.DeleteHidden" Bool="true"/>
-
+<Annotation Term="UI.UpdateHidden">
+        <If>
+            <Or>
+                <Eq>
+                    <Path>ReleaseCode</Path>
+                    <String>G</String>
+                </Eq>
+                <Eq>
+                    <Path>ReleaseCode</Path>
+                    <String>R</String>
+                </Eq>
+            </Or>
+            <Bool>true</Bool>   <Bool>false</Bool>  </If>
+    </Annotation>
                 <!-- ============================================================ -->
                 <!-- HEADER INFO                                                  -->
                 <!-- ============================================================ -->
@@ -42,9 +50,7 @@
                     </Record>
                 </Annotation>
 
-                <!-- ============================================================ -->
-                <!-- PRESENTATION VARIANT (Sort by LocalLastChangedAt DESC)       -->
-                <!-- ============================================================ -->
+
                 <Annotation Term="UI.PresentationVariant">
                     <Record Type="UI.PresentationVariantType">
                         <PropertyValue Property="SortOrder">
@@ -58,9 +64,7 @@
                     </Record>
                 </Annotation>
 
-                <!-- ============================================================ -->
-                <!-- SEARCH                                                       -->
-                <!-- ============================================================ -->
+
                 <Annotation Term="Capabilities.SearchRestrictions">
                     <Record>
                         <PropertyValue Property="Searchable" Bool="true"/>
@@ -173,10 +177,16 @@
                             <PropertyValue Property="Label" String="PO Date"/>
                         </Record>
 
+
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ReleaseCode"/>
                             <PropertyValue Property="Label" String="Release Code"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                                                <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DeliveryDate"/>
+                            <PropertyValue Property="Label" String="Delivery Date"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
                         </Record>
 
                         <Record Type="UI.DataField">

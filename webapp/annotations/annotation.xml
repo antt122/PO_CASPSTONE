@@ -18,7 +18,9 @@
 
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            
             <Annotations Target="SAP__self.PoItemType">
+                
                 <Annotation Term="Common.SideEffects" Qualifier="NetAmountCalculation">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -34,6 +36,22 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+
+                <Annotation Term="Common.SideEffects" Qualifier="DuplicateMaterialCheck">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Material</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>SAP__Messages</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
             </Annotations>
 
         </Schema>

@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="idDeletedLogDlg" title="Deleted Purchase Orders History" contentWidth="900px" contentHeight="450px" resizable="true" draggable="true">
+        <content>
+            <Table id="deletedLogTable" items="{path: '/PoChangeLog'}" noDataText="No deleted PO records found." alternateRowColors="true">
+                <columns>
+                    <Column id="colDelPoNum" width="150px">
+                        <Text id="lblDelPoNum" text="PO Number" />
+                    </Column>
+                    <Column id="colDelTime" width="180px">
+                        <Text id="lblDelTime" text="Deleted At" />
+                    </Column>
+                    <Column id="colDelUser" width="150px">
+                        <Text id="lblDelUser" text="Deleted By" />
+                    </Column>
+                    <Column id="colDelReason">
+                        <Text id="lblDelReason" text="Reason" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="cliDeletedLogItem">
+                        <cells>
+                            <Text id="txtDelPoNum" text="{PoNumber}"/>
+                            <Text id="txtDelChangedAt" text="{ChangedAt}"/>
+                            <Text id="txtDelChangedBy" text="{ChangedBy}"/>
+                            
+                            <ExpandableText id="txtDelChangeReason" 
+                                            text="{ChangeReason}" 
+                                            maxCharacters="50" 
+                                            overflowMode="Popover" />
+
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <buttons>
+            <Button id="btnCloseDeletedLog" text="Close" press=".onCloseDeletedLogDialog" type="Reject"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
