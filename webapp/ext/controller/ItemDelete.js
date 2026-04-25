@@ -7,39 +7,62 @@ sap.ui.define([
     return {
         onRequestDeleteItem: function (oBindingContext, aSelectedContexts) {
             var oExtensionAPI = this;
-            var aContexts = aSelectedContexts || [];
+            
+            // Lấy context an toàn
+            var aContexts = (aSelectedContexts && aSelectedContexts.length > 0) 
+                            ? aSelectedContexts 
+                            : (oBindingContext ? [oBindingContext] : []);
+
+            if (aContexts.length === 0) {
+                return MessageToast.show("Please select at least one item to delete!");
+            }
 
             try {
                 var oEditFlow = oExtensionAPI.getEditFlow();
                 var oTargetContext = aContexts[0];
+                var oBinding = oTargetContext && typeof oTargetContext.getBinding === "function" ? oTargetContext.getBinding() : null;
+                var iTotalItems = oBinding ? (oBinding.getCount() || oBinding.getLength() || 0) : 0; 
 
-                var oBinding = oTargetContext.getBinding();
-                var iTotalItems = oBinding.getCount() || oBinding.getLength(); 
-
-                // Ensure the Purchase Order retains at least one item
-                if (aContexts.length >= iTotalItems) {
-                   return sap.m.MessageBox.error("A Purchase Order must have at least one item. You cannot delete all items.");
+                // Rule 1: PO phải luôn có ít nhất 1 item
+                if (iTotalItems > 0 && aContexts.length >= iTotalItems) {
+                   return MessageBox.error("A Purchase Order must have at least one item. You cannot delete all items.");
                 }
                 
-                // 1. Retrieve the PoItem number to determine its state
-                var sPoItem = oTargetContext.getProperty("PoItem");
+                var aNewItems = [];
+                var aExistingItems = [];
+
+                // Rule 2: QUAY LẠI LOGIC CHECK THEO PO ITEM
+                aContexts.forEach(function (oCtx) {
+                    var sPoItem = oCtx.getProperty("PoItem");
+                    
+                    // Nếu rỗng, bằng 0, hoặc bằng 00000 -> Đích thị là dòng mới add thêm trong lúc Edit
+                    if (!sPoItem || sPoItem === "0" || sPoItem === "00000") {
+                        aNewItems.push(oCtx);
+                    } else {
+                        // Nếu đã có số (VD: 00010) -> Là dòng đã tồn tại từ trước, phải nhập lý do
+                        aExistingItems.push(oCtx);
+                    }
+                });
+
+                // Rule 3: Chặn xóa hỗn hợp
+                if (aNewItems.length > 0 && aExistingItems.length > 0) {
+                    return MessageBox.warning("Please select either ONLY newly added items or ONLY existing items to delete, not both mixed.");
+                }
+
+                // Thiết lập cờ: Bỏ qua popup (true) CHỈ KHI không có dòng cũ nào được chọn
+                var bSkipPopup = (aExistingItems.length === 0);
                 var sActionName = "com.sap.gateway.srvd.zui_purchaseorder.v0001.requestDeleteItem";
 
-                // 2. Logic definition: If PoItem is empty or zero, it is a newly created draft item
-                var bIsNewItem = (!sPoItem || sPoItem === "0" );
-
-                // 3. Invoke the requestDeleteItem action
+                // Gọi backend Action
                 oEditFlow.invokeAction(sActionName, {
                     contexts: aContexts,
                     label: "Confirm Deletion Item", 
-                    // IF bIsNewItem is TRUE -> skipParameterDialog = true (Bypass the reason popup)
-                    // IF bIsNewItem is FALSE -> skipParameterDialog = false (Display the reason popup)
-                    skipParameterDialog: bIsNewItem 
+                    skipParameterDialog: bSkipPopup 
                 }).then(function () {
-                    // Display an appropriate success message based on the item type
-                    MessageToast.show(bIsNewItem ? "Draft item removed." : "Item deleted successfully!");
+                    
+                    MessageToast.show(bSkipPopup ? "Newly added item(s) removed successfully!" : "Item(s) deleted successfully!");
 
-                    // Refresh Side Effects to update the table and Header aggregations
+                    // Refresh lại bảng dữ liệu
                     if (oExtensionAPI.getSideEffects) {
                         oExtensionAPI.getSideEffects().requestSideEffects([{ "$NavigationPropertyPath": "_PoItem" }]);
                     } else {
@@ -48,18 +71,15 @@ sap.ui.define([
 
                 }).catch(function (err) {
                     var sError = (err.message || "").toLowerCase();
-                    
-                    // Ignore the error if the user intentionally cancelled the dialog
                     if (sError.indexOf("cancel") !== -1 || sError.indexOf("dialog cancelled") !== -1) {
                         return MessageToast.show("Deletion cancelled.");
                     }
-                    
                     MessageBox.error("Backend Error: " + err.message);
                 });
 
             } catch (e) {
                 console.error("Fiori V4 logic error:", e);
-                MessageBox.error("UI Logic Error: " + e.message);
+                MessageBox.error("JS Error: " + e.message);
             }
         }
     };

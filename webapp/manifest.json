@@ -225,13 +225,13 @@
                     "Share": {
                       "visible": false
                     },
+                    
                     "requestDeleteHeaderAction": {
                       "id": "btnRequestDeleteHeader",
                       "text": "Delete",
                       "press": "capstone.ext.controller.ObjectPageActions.onRequestDelete",
-                      "visible": true,
-                      "type": "Negative",
-                      "enabled": "{= ${ReleaseCode} !== 'R' && ${ReleaseCode} !== 'G' }"
+                      "visible": "{= %{path: 'ReleaseCode', targetType: 'any'} !== 'G' && %{path: 'ReleaseCode', targetType: 'any'} !== 'R' }",
+                      "type": "Negative"
                     }
                   }
                 }

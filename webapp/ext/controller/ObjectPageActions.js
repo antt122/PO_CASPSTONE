@@ -323,6 +323,8 @@ sap.ui.define([
         onNavigateToExternal: function (oEvent) {
             var sUrl = "https://s40lp1.ucc.cit.tum.de/sap/bc/ui2/flp?sap-client=324&sap-language=EN#ZSO_PO_F15400-create";
             URLHelper.redirect(sUrl, true);
-        }
+        },
+
+       
     };
 });
